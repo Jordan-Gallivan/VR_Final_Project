@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Edge : MonoBehaviour
+public class Edge : MonoBehaviour, IComparable
 {
     [SerializeField] private GameObject graph;
     private Arrows edgeArrows;
@@ -27,10 +27,7 @@ public class Edge : MonoBehaviour
         edgeArrows = this.GetComponent<Arrows>();
     }
 
-    public override string ToString()
-    {
-        return $"[{start.Name}] <-> [{dest.Name}] ({weight})";
-    }
+    
 
     public void ActivateArrows()
     {
@@ -40,5 +37,21 @@ public class Edge : MonoBehaviour
     public void DeactivateArrows()
     {
         edgeArrows.ArrowsActivated = false;
+    }
+
+    public int CompareTo(object other)
+    {
+        if (other.GetType() != this.GetType()) return 1;
+        Edge otherEdge = (Edge)other;
+        if (otherEdge.Source == start && otherEdge.Destination == dest) return 0;
+        return -1;
+    }
+    public override int GetHashCode()
+    {
+        return this.ToString().GetHashCode();
+    }
+    public override string ToString()
+    {
+        return $"[{start.Name}] <-> [{dest.Name}] ({weight})";
     }
 }

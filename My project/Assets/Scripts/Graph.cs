@@ -30,8 +30,8 @@ public class Graph : MonoBehaviour
         Node dest = edge.Destination;
         if (!nodes.Contains(src)) AddNode(src);
         if (!nodes.Contains(dest)) AddNode(dest);
-        if (!edges[src].Contains(edge)) edges[edge.Source].Add(edge);
-        if (!edges[dest].Contains(edge)) edges[edge.Source].Add(edge);
+        if (!edges[src].Contains(edge)) edges[src].Add(edge);
+        if (!edges[dest].Contains(edge)) edges[dest].Add(edge);
         return true;
     }
 
