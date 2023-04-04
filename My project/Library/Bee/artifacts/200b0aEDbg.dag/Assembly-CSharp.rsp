@@ -350,9 +350,13 @@
 -r:"Library/Bee/artifacts/200b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/200b0aEDbg.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/Arrows.cs"
+"Assets/Scripts/DJPriorityQueue.cs"
 "Assets/Scripts/Edge.cs"
+"Assets/Scripts/EdgeClone.cs"
 "Assets/Scripts/Graph.cs"
 "Assets/Scripts/Node.cs"
+"Assets/Scripts/PQTester.cs"
+"Assets/Scripts/QueueElement.cs"
 -langversion:9.0
 
 /deterministic
