@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
@@ -22,21 +23,23 @@ public class Graph : MonoBehaviour
     private HashSet<Node> nodes;
     private Dictionary<Node, HashSet<Edge>> edges;
 
-    private Dictionary<Node, Dictionary<Node, List<Edge>>> shortestPaths;
+    private Dictionary<Node, Dictionary<Node, QueueElement>> shortestPaths;
 
 
     public void Start()
     {
+        Console.WriteLine("test");
         // initialize nodes and edges
         nodes = new HashSet<Node>();
         edges = new Dictionary<Node, HashSet<Edge>>();
-        shortestPaths = new Dictionary<Node, Dictionary<Node, List<Edge>>>();
+        shortestPaths = new Dictionary<Node, Dictionary<Node, QueueElement>>();
         
         // delays building of the graph by buildTimeDelay seconds
         // Invoke("BuildGraph", buildTimeDelay);
         
         BuildGraph();
         BuildShortestPaths();
+        // DJTest();
         
     }
     
@@ -117,7 +120,31 @@ public class Graph : MonoBehaviour
                     }
                 }
             }
+            shortestPaths.Add(src, nodeDict);
+        }
+    }
 
+    public void DJTest()
+    {
+        StringBuilder sb;
+        foreach (var(src, sp) in shortestPaths)
+        {
+            Debug.Log(src.ToString());
+            Debug.Log("------------------------");
+            
+            foreach (var (dest, qe) in sp)
+            {
+                sb = new StringBuilder();
+                sb.Append(src.ToString());
+                foreach (Edge e in qe.Path)
+                {
+                    sb.Append(" -> ");
+                    sb.Append(e.DestinationNode.ToString());
+                }
+
+                Debug.Log(sb.ToString());
+            }
+            Debug.Log("");
         }
     }
 }
