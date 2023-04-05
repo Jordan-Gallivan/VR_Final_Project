@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -39,7 +40,7 @@ public class Graph : MonoBehaviour
         
         BuildGraph();
         BuildShortestPaths();
-        // DJTest();
+        DJTest();
         
     }
     
@@ -126,25 +127,43 @@ public class Graph : MonoBehaviour
 
     public void DJTest()
     {
-        StringBuilder sb;
-        foreach (var(src, sp) in shortestPaths)
+        // StringBuilder sb;
+        // foreach (var(src, sp) in shortestPaths)
+        // {
+        //     Debug.Log(src.ToString());
+        //     Debug.Log("------------------------");
+        //     
+        //     foreach (var (dest, qe) in sp)
+        //     {
+        //         sb = new StringBuilder();
+        //         sb.Append(src.ToString());
+        //         foreach (Edge e in qe.Path)
+        //         {
+        //             sb.Append(" -> ");
+        //             sb.Append(e.DestinationNode.ToString());
+        //         }
+        //
+        //         Debug.Log(sb.ToString());
+        //     }
+        //     Debug.Log("");
+        // }
+
+        StreamWriter write = new StreamWriter("Assets/Scripts/pathTest.txt", false);
+        foreach (var (src, sp) in shortestPaths)
         {
-            Debug.Log(src.ToString());
-            Debug.Log("------------------------");
-            
+            write.WriteLine(src.ToString());
+            write.WriteLine("------------------------");
             foreach (var (dest, qe) in sp)
             {
-                sb = new StringBuilder();
-                sb.Append(src.ToString());
+                write.Write($"{src}");
                 foreach (Edge e in qe.Path)
                 {
-                    sb.Append(" -> ");
-                    sb.Append(e.DestinationNode.ToString());
+                    write.Write($" -> {e.DestinationNode}");
                 }
-
-                Debug.Log(sb.ToString());
+                write.WriteLine();
             }
-            Debug.Log("");
+            write.WriteLine();
         }
+        write.Close();
     }
 }
