@@ -1,70 +1,340 @@
-A1 (Node)
+1-2
 ------------------------
-A1 (Node)
-A1 (Node) -> A2 (Node)
-A1 (Node) -> A2 (Node) -> A3 (Node)
-A1 (Node) -> B1 (Node)
-A1 (Node) -> B2 (Node)
-A1 (Node) -> B2 (Node) -> B3 (Node)
-A1 (Node) -> B2 (Node) -> C1 (Node)
+1-2
+1-2 -> 2SouthEast
+1-2 -> 2SouthEast -> 2Center
+1-2 -> 2SouthEast -> 2East
+1-2 -> 2SouthEast -> 2North
+1-2 -> 2SouthEast -> 2South
+1-2 -> 2SouthEast -> 2Center -> 2West
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South -> 3East
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3North
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3West
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+1-2 -> 2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
 
-A2 (Node)
+2SouthEast
 ------------------------
-A2 (Node) -> A1 (Node)
-A2 (Node)
-A2 (Node) -> A3 (Node)
-A2 (Node) -> A1 (Node) -> B1 (Node)
-A2 (Node) -> A1 (Node) -> B2 (Node)
-A2 (Node) -> A3 (Node) -> B3 (Node)
-A2 (Node) -> A3 (Node) -> B3 (Node) -> C1 (Node)
+2SouthEast -> 1-2
+2SouthEast
+2SouthEast -> 2Center
+2SouthEast -> 2East
+2SouthEast -> 2North
+2SouthEast -> 2South
+2SouthEast -> 2Center -> 2West
+2SouthEast -> 2Center -> 2NorthWest
+2SouthEast -> 2Center -> 2NorthWest -> 2-3
+2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center
+2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South -> 3East
+2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3North
+2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest
+2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3West
+2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South
+2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+2SouthEast -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
 
-A3 (Node)
+2Center
 ------------------------
-A3 (Node) -> A2 (Node) -> A1 (Node)
-A3 (Node) -> A2 (Node)
-A3 (Node)
-A3 (Node) -> A2 (Node) -> A1 (Node) -> B1 (Node)
-A3 (Node) -> B3 (Node) -> B2 (Node)
-A3 (Node) -> B3 (Node)
-A3 (Node) -> B3 (Node) -> C1 (Node)
+2Center -> 2SouthEast -> 1-2
+2Center -> 2SouthEast
+2Center
+2Center -> 2East
+2Center -> 2North
+2Center -> 2South
+2Center -> 2West
+2Center -> 2NorthWest
+2Center -> 2NorthWest -> 2-3
+2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center
+2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South -> 3East
+2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3North
+2Center -> 2NorthWest -> 2-3 -> 3SouthWest
+2Center -> 2NorthWest -> 2-3 -> 3West
+2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South
+2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
 
-B1 (Node)
+2East
 ------------------------
-B1 (Node) -> A1 (Node)
-B1 (Node) -> A1 (Node) -> A2 (Node)
-B1 (Node) -> A1 (Node) -> A2 (Node) -> A3 (Node)
-B1 (Node)
-B1 (Node) -> B2 (Node)
-B1 (Node) -> B2 (Node) -> B3 (Node)
-B1 (Node) -> B2 (Node) -> C1 (Node)
+2East -> 2SouthEast -> 1-2
+2East -> 2SouthEast
+2East -> 2Center
+2East
+2East -> 2Center -> 2North
+2East -> 2SouthEast -> 2South
+2East -> 2Center -> 2West
+2East -> 2Center -> 2NorthWest
+2East -> 2Center -> 2NorthWest -> 2-3
+2East -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center
+2East -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South -> 3East
+2East -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3North
+2East -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest
+2East -> 2Center -> 2NorthWest -> 2-3 -> 3West
+2East -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South
+2East -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+2East -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
 
-B2 (Node)
+2North
 ------------------------
-B2 (Node) -> A1 (Node)
-B2 (Node) -> A1 (Node) -> A2 (Node)
-B2 (Node) -> B3 (Node) -> A3 (Node)
-B2 (Node) -> B1 (Node)
-B2 (Node)
-B2 (Node) -> B3 (Node)
-B2 (Node) -> C1 (Node)
+2North -> 2SouthEast -> 1-2
+2North -> 2SouthEast
+2North -> 2Center
+2North -> 2Center -> 2East
+2North
+2North -> 2Center -> 2South
+2North -> 2Center -> 2West
+2North -> 2Center -> 2NorthWest
+2North -> 2Center -> 2NorthWest -> 2-3
+2North -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center
+2North -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South -> 3East
+2North -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3North
+2North -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest
+2North -> 2Center -> 2NorthWest -> 2-3 -> 3West
+2North -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South
+2North -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+2North -> 2Center -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
 
-B3 (Node)
+2South
 ------------------------
-B3 (Node) -> B2 (Node) -> A1 (Node)
-B3 (Node) -> A3 (Node) -> A2 (Node)
-B3 (Node) -> A3 (Node)
-B3 (Node) -> B2 (Node) -> B1 (Node)
-B3 (Node) -> B2 (Node)
-B3 (Node)
-B3 (Node) -> C1 (Node)
+2South -> 2SouthEast -> 1-2
+2South -> 2SouthEast
+2South -> 2Center
+2South -> 2SouthEast -> 2East
+2South -> 2Center -> 2North
+2South
+2South -> 2West
+2South -> 2NorthWest
+2South -> 2NorthWest -> 2-3
+2South -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center
+2South -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South -> 3East
+2South -> 2NorthWest -> 2-3 -> 3SouthWest -> 3North
+2South -> 2NorthWest -> 2-3 -> 3SouthWest
+2South -> 2NorthWest -> 2-3 -> 3West
+2South -> 2NorthWest -> 2-3 -> 3SouthWest -> 3South
+2South -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+2South -> 2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
 
-C1 (Node)
+2West
 ------------------------
-C1 (Node) -> B2 (Node) -> A1 (Node)
-C1 (Node) -> B3 (Node) -> A3 (Node) -> A2 (Node)
-C1 (Node) -> B3 (Node) -> A3 (Node)
-C1 (Node) -> B2 (Node) -> B1 (Node)
-C1 (Node) -> B2 (Node)
-C1 (Node) -> B3 (Node)
-C1 (Node)
+2West -> 2Center -> 2SouthEast -> 1-2
+2West -> 2Center -> 2SouthEast
+2West -> 2Center
+2West -> 2Center -> 2East
+2West -> 2Center -> 2North
+2West -> 2South
+2West
+2West -> 2NorthWest
+2West -> 2-3
+2West -> 2-3 -> 3SouthWest -> 3Center
+2West -> 2-3 -> 3SouthWest -> 3South -> 3East
+2West -> 2-3 -> 3SouthWest -> 3North
+2West -> 2-3 -> 3SouthWest
+2West -> 2-3 -> 3West
+2West -> 2-3 -> 3SouthWest -> 3South
+2West -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+2West -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
+
+2NorthWest
+------------------------
+2NorthWest -> 2Center -> 2SouthEast -> 1-2
+2NorthWest -> 2Center -> 2SouthEast
+2NorthWest -> 2Center
+2NorthWest -> 2Center -> 2East
+2NorthWest -> 2Center -> 2North
+2NorthWest -> 2South
+2NorthWest -> 2West
+2NorthWest
+2NorthWest -> 2-3
+2NorthWest -> 2-3 -> 3SouthWest -> 3Center
+2NorthWest -> 2-3 -> 3SouthWest -> 3South -> 3East
+2NorthWest -> 2-3 -> 3SouthWest -> 3North
+2NorthWest -> 2-3 -> 3SouthWest
+2NorthWest -> 2-3 -> 3West
+2NorthWest -> 2-3 -> 3SouthWest -> 3South
+2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+2NorthWest -> 2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
+
+2-3
+------------------------
+2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+2-3 -> 2NorthWest -> 2Center
+2-3 -> 2NorthWest -> 2Center -> 2East
+2-3 -> 2NorthWest -> 2Center -> 2North
+2-3 -> 2NorthWest -> 2South
+2-3 -> 2West
+2-3 -> 2NorthWest
+2-3
+2-3 -> 3SouthWest -> 3Center
+2-3 -> 3SouthWest -> 3South -> 3East
+2-3 -> 3SouthWest -> 3North
+2-3 -> 3SouthWest
+2-3 -> 3West
+2-3 -> 3SouthWest -> 3South
+2-3 -> 3SouthWest -> 3Center -> 3NorthEast
+2-3 -> 3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
+
+3Center
+------------------------
+3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center
+3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2East
+3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2North
+3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2South
+3Center -> 3SouthWest -> 2-3 -> 2West
+3Center -> 3SouthWest -> 2-3 -> 2NorthWest
+3Center -> 3SouthWest -> 2-3
+3Center
+3Center -> 3East
+3Center -> 3North
+3Center -> 3SouthWest
+3Center -> 3West
+3Center -> 3South
+3Center -> 3NorthEast
+3Center -> 3NorthEast -> 3-4-7-8
+
+3East
+------------------------
+3East -> 3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+3East -> 3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+3East -> 3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center
+3East -> 3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2East
+3East -> 3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2North
+3East -> 3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2South
+3East -> 3South -> 3SouthWest -> 2-3 -> 2West
+3East -> 3South -> 3SouthWest -> 2-3 -> 2NorthWest
+3East -> 3South -> 3SouthWest -> 2-3
+3East -> 3Center
+3East
+3East -> 3NorthEast -> 3North
+3East -> 3South -> 3SouthWest
+3East -> 3Center -> 3West
+3East -> 3South
+3East -> 3NorthEast
+3East -> 3NorthEast -> 3-4-7-8
+
+3North
+------------------------
+3North -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+3North -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+3North -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center
+3North -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2East
+3North -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2North
+3North -> 3SouthWest -> 2-3 -> 2NorthWest -> 2South
+3North -> 3SouthWest -> 2-3 -> 2West
+3North -> 3SouthWest -> 2-3 -> 2NorthWest
+3North -> 3SouthWest -> 2-3
+3North -> 3Center
+3North -> 3NorthEast -> 3East
+3North
+3North -> 3SouthWest
+3North -> 3West
+3North -> 3Center -> 3South
+3North -> 3NorthEast
+3North -> 3NorthEast -> 3-4-7-8
+
+3SouthWest
+------------------------
+3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+3SouthWest -> 2-3 -> 2NorthWest -> 2Center
+3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2East
+3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2North
+3SouthWest -> 2-3 -> 2NorthWest -> 2South
+3SouthWest -> 2-3 -> 2West
+3SouthWest -> 2-3 -> 2NorthWest
+3SouthWest -> 2-3
+3SouthWest -> 3Center
+3SouthWest -> 3South -> 3East
+3SouthWest -> 3North
+3SouthWest
+3SouthWest -> 3West
+3SouthWest -> 3South
+3SouthWest -> 3Center -> 3NorthEast
+3SouthWest -> 3Center -> 3NorthEast -> 3-4-7-8
+
+3West
+------------------------
+3West -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+3West -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+3West -> 2-3 -> 2NorthWest -> 2Center
+3West -> 2-3 -> 2NorthWest -> 2Center -> 2East
+3West -> 2-3 -> 2NorthWest -> 2Center -> 2North
+3West -> 2-3 -> 2NorthWest -> 2South
+3West -> 2-3 -> 2West
+3West -> 2-3 -> 2NorthWest
+3West -> 2-3
+3West -> 3Center
+3West -> 3Center -> 3East
+3West -> 3North
+3West -> 3SouthWest
+3West
+3West -> 3SouthWest -> 3South
+3West -> 3Center -> 3NorthEast
+3West -> 3Center -> 3NorthEast -> 3-4-7-8
+
+3South
+------------------------
+3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center
+3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2East
+3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2North
+3South -> 3SouthWest -> 2-3 -> 2NorthWest -> 2South
+3South -> 3SouthWest -> 2-3 -> 2West
+3South -> 3SouthWest -> 2-3 -> 2NorthWest
+3South -> 3SouthWest -> 2-3
+3South -> 3Center
+3South -> 3East
+3South -> 3Center -> 3North
+3South -> 3SouthWest
+3South -> 3SouthWest -> 3West
+3South
+3South -> 3NorthEast
+3South -> 3NorthEast -> 3-4-7-8
+
+3NorthEast
+------------------------
+3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center
+3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2East
+3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2North
+3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2South
+3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2West
+3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest
+3NorthEast -> 3Center -> 3SouthWest -> 2-3
+3NorthEast -> 3Center
+3NorthEast -> 3East
+3NorthEast -> 3North
+3NorthEast -> 3Center -> 3SouthWest
+3NorthEast -> 3Center -> 3West
+3NorthEast -> 3South
+3NorthEast
+3NorthEast -> 3-4-7-8
+
+3-4-7-8
+------------------------
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast -> 1-2
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2SouthEast
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2East
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2Center -> 2North
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest -> 2South
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2West
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3 -> 2NorthWest
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest -> 2-3
+3-4-7-8 -> 3NorthEast -> 3Center
+3-4-7-8 -> 3NorthEast -> 3East
+3-4-7-8 -> 3NorthEast -> 3North
+3-4-7-8 -> 3NorthEast -> 3Center -> 3SouthWest
+3-4-7-8 -> 3NorthEast -> 3Center -> 3West
+3-4-7-8 -> 3NorthEast -> 3South
+3-4-7-8 -> 3NorthEast
+3-4-7-8
 
