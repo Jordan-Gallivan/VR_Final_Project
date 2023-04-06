@@ -15,6 +15,7 @@ public class Node : MonoBehaviour, IComparable
         B1,
         B2,
         B3,
+        C1
     };
     [SerializeField] private Names nodeName = new Names();
     public string Name => nodeName.ToString();  // getter for Node Name
