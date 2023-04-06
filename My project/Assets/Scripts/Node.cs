@@ -6,19 +6,19 @@ using UnityEngine;
 
 public class Node : MonoBehaviour, IComparable
 {
-    // Enumerable Object of available node names for user selection
-    enum Names
-    {
-        A1,
-        A2,
-        A3,
-        B1,
-        B2,
-        B3,
-        C1
-    };
-    [SerializeField] private Names nodeName = new Names();
-    public string Name => nodeName.ToString();  // getter for Node Name
+    // // Enumerable Object of available node names for user selection
+    // enum Names
+    // {
+    //     A1,
+    //     A2,
+    //     A3,
+    //     B1,
+    //     B2,
+    //     B3,
+    //     C1
+    // };
+    // [SerializeField] private Names nodeName = new Names();
+    // public string Name => nodeName.ToString();  // getter for Node Name
     
     // Node color and render properties
     private Renderer nodeRenderer;
@@ -30,6 +30,14 @@ public class Node : MonoBehaviour, IComparable
     {
         nodeRenderer = this.gameObject.GetComponent<Renderer>();
         MakeNodeClear();
+        GameObject gObject = new GameObject("MyGameObject");
+        LineRenderer lRend = gObject.AddComponent<LineRenderer>();
+ 
+        lRend.SetColors (Color.red,Color.blue);
+        // lRend.material = new Material(Shader.Find("Particles/Additive"));
+        lRend.SetWidth(.5f, .5f);
+        lRend.SetPosition(0,Vector3.zero);
+        lRend.SetPosition(1,Vector3.one);
     }
     
     /// <summary>
@@ -58,7 +66,7 @@ public class Node : MonoBehaviour, IComparable
     {
         if (other.GetType() != this.GetType()) return 1;
         Node otherNode = (Node)other;
-        if (otherNode.Name == this.Name) return 0;
+        if (otherNode.gameObject.name == this.gameObject.name) return 0;
         else return -1;
     }
     /// <summary>
@@ -67,7 +75,11 @@ public class Node : MonoBehaviour, IComparable
     /// <returns>Hashcode of node.Name</returns>
     public override int GetHashCode()
     {
-        return this.Name.GetHashCode();
+        return this.gameObject.name.GetHashCode();
     }
-    
+
+    public override string ToString()
+    {
+        return this.gameObject.name;
+    }
 }

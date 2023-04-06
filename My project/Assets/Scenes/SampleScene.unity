@@ -170,7 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &10162526
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -329,7 +328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &66119441
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -509,7 +507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &116864300
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -948,7 +945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &220616020
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1346,7 +1342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &520828484
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1458,7 +1453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &556974969
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1746,7 +1740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &628072753
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2011,7 +2004,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735674799}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c423abb53a9894420bbb1cb27deea64d, type: 3}
   m_Name: 
@@ -2148,7 +2141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &864255074
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2260,7 +2252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &897470665
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2592,7 +2583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &979781983
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2704,7 +2694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &1000865757
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2816,7 +2805,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &1051333004
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3146,7 +3134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &1131372602
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3258,7 +3245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &1167028242
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3558,7 +3544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &1441761153
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4104,7 +4089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad725fd82c72c4e419c4fc680d8c5dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeName: 0
 --- !u!136 &2103037524
 CapsuleCollider:
   m_ObjectHideFlags: 0

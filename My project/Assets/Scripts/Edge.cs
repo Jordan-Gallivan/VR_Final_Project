@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Edge : MonoBehaviour, IComparable
 {
-    // visual arrows
-    private Arrows edgeArrows;
-    
     // reverse Edge
     private GameObject reverseEdge;
     
@@ -52,8 +49,6 @@ public class Edge : MonoBehaviour, IComparable
         // calculate weight (distance between nodes)
         weight = Vector3.Distance(sourceGO.transform.position, destinationGO.transform.position);
         
-        GetEdgeArrows();
-        
     }
 
     public Edge BuildReverseEdge(GameObject edgeCloneParent)
@@ -68,34 +63,11 @@ public class Edge : MonoBehaviour, IComparable
         reverseEdgeObj.SourceNode = this.destinationNode;
         reverseEdgeObj.destinationNode = this.sourceNode;
         reverseEdgeObj.weight = this.weight;
-        reverseEdgeObj.GetEdgeArrows();
-        // reverseEdgeObj.ActivateArrows();
 
         return reverseEdgeObj;
 
     }
-
-    public void GetEdgeArrows()
-    {
-        // pull script from visual arrows
-        edgeArrows = this.GetComponent<Arrows>();
-    }
     
-    /// <summary>
-    /// Illuminates visual arrows for current path
-    /// </summary>
-    public void ActivateArrows()
-    {
-        edgeArrows.ArrowsActivated = true;
-    }
-    
-    /// <summary>
-    /// Deactivates visual arrows
-    /// </summary>
-    public void DeactivateArrows()
-    {
-        edgeArrows.ArrowsActivated = false;
-    }
 
     /// <summary>
     /// Overrides CompareTo.  Compares this Edge to other Edge
@@ -126,6 +98,6 @@ public class Edge : MonoBehaviour, IComparable
     /// <returns>"[Source] <-> [Destination] (Weight)"</returns>
     public override string ToString()
     {
-        return $"[{sourceNode.Name}] <-> [{destinationNode.Name}] ({weight})";
+        return $"[{sourceNode}] <-> [{destinationNode}] ({weight})";
     }
 }
