@@ -30,14 +30,9 @@ public class Node : MonoBehaviour, IComparable
     {
         nodeRenderer = this.gameObject.GetComponent<Renderer>();
         MakeNodeClear();
-        GameObject gObject = new GameObject("MyGameObject");
-        LineRenderer lRend = gObject.AddComponent<LineRenderer>();
- 
-        lRend.SetColors (Color.red,Color.blue);
-        // lRend.material = new Material(Shader.Find("Particles/Additive"));
-        lRend.SetWidth(.5f, .5f);
-        lRend.SetPosition(0,Vector3.zero);
-        lRend.SetPosition(1,Vector3.one);
+        
+        this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+
     }
     
     /// <summary>

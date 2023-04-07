@@ -15,6 +15,7 @@ public class Graph : MonoBehaviour
     // All edges in graph
     [SerializeField] private GameObject edgeEmpty;
     [SerializeField] private GameObject edgeEmptyClone;
+    [SerializeField] private GameObject visualPathGO;
 
     [SerializeField] private float buildTimeDelay;
     
@@ -25,6 +26,7 @@ public class Graph : MonoBehaviour
     private Dictionary<Node, HashSet<Edge>> edges;
 
     private Dictionary<Node, Dictionary<Node, QueueElement>> shortestPaths;
+    private LineRenderer visualPath;
 
 
     public void Start()
@@ -40,8 +42,9 @@ public class Graph : MonoBehaviour
         
         BuildGraph();
         BuildShortestPaths();
-        DJTest();
-        
+        // DJTest();
+
+        visualPath = visualPathGO.AddComponent<LineRenderer>();
     }
     
     /// <summary>
@@ -127,27 +130,6 @@ public class Graph : MonoBehaviour
 
     public void DJTest()
     {
-        // StringBuilder sb;
-        // foreach (var(src, sp) in shortestPaths)
-        // {
-        //     Debug.Log(src.ToString());
-        //     Debug.Log("------------------------");
-        //     
-        //     foreach (var (dest, qe) in sp)
-        //     {
-        //         sb = new StringBuilder();
-        //         sb.Append(src.ToString());
-        //         foreach (Edge e in qe.Path)
-        //         {
-        //             sb.Append(" -> ");
-        //             sb.Append(e.DestinationNode.ToString());
-        //         }
-        //
-        //         Debug.Log(sb.ToString());
-        //     }
-        //     Debug.Log("");
-        // }
-
         StreamWriter write = new StreamWriter("Assets/Scripts/pathTest.txt", false);
         foreach (var (src, sp) in shortestPaths)
         {
@@ -166,4 +148,29 @@ public class Graph : MonoBehaviour
         }
         write.Close();
     }
+
+    public void DisplayPath(Node start, Node dest)
+    {
+        List<Edge> path = shortestPaths[start][dest].Path;
+        // visualPath = new LineRenderer();
+        visualPath.SetColors (Color.red,Color.blue);
+        visualPath.SetWidth(.75f, .75f);
+        visualPath.positionCount = path.Count + 1;
+
+        visualPath.SetPosition(0,start.gameObject.transform.position);
+        int i = 1;
+        foreach (Edge e in path)
+        {
+            visualPath.SetPosition(i,e.DestinationNode.gameObject.transform.position);
+            i++;
+        }
+
+    }
+    
+    /*
+     *  lRend.SetColors (Color.red,Color.blue);
+        lRend.SetWidth(.5f, .5f);
+        lRend.SetPosition(0,Vector3.zero);
+        lRend.SetPosition(1,Vector3.one);
+     */
 }
