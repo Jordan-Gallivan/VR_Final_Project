@@ -378,6 +378,7 @@
 "Assets/Scripts/Edge.cs"
 "Assets/Scripts/EdgeClone.cs"
 "Assets/Scripts/Graph.cs"
+"Assets/Scripts/HUD.cs"
 "Assets/Scripts/Node.cs"
 "Assets/Scripts/Period.cs"
 "Assets/Scripts/PlayerScript.cs"

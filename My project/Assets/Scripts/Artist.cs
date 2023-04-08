@@ -9,6 +9,8 @@ public class Artist
     private List<string> brief;
     public List<string> Brief => brief;
 
+    private List<Node> exhibitObjects;
+
     private string bio { get; set; }
 
     public Artist()
