@@ -112,6 +112,7 @@
 -define:ENABLE_TERRAIN
 -define:ENABLE_TILEMAP
 -define:ENABLE_TIMELINE
+-define:ENABLE_INPUT_SYSTEM
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
 -define:CSHARP_7_OR_LATER
@@ -372,11 +373,13 @@
 -r:"Library/Bee/artifacts/200b0aEDbg.dag/UnityEngine.UI.ref.dll"
 -r:"Library/Bee/artifacts/200b0aEDbg.dag/UnityEngine.XR.LegacyInputHelpers.ref.dll"
 "Assets/Scripts/Arrows.cs"
+"Assets/Scripts/Artist.cs"
 "Assets/Scripts/DJPriorityQueue.cs"
 "Assets/Scripts/Edge.cs"
 "Assets/Scripts/EdgeClone.cs"
 "Assets/Scripts/Graph.cs"
 "Assets/Scripts/Node.cs"
+"Assets/Scripts/Period.cs"
 "Assets/Scripts/PlayerScript.cs"
 "Assets/Scripts/QueueElement.cs"
 -langversion:9.0
