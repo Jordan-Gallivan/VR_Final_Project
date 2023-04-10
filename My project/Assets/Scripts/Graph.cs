@@ -78,10 +78,10 @@ public class Graph : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            
-        }
+        // if (Input.GetKeyDown("space"))
+        // {
+        //     
+        // }
     }
 
     private void BuildShortestPaths()
@@ -154,7 +154,7 @@ public class Graph : MonoBehaviour
         List<Edge> path = shortestPaths[start][dest].Path;
         // visualPath = new LineRenderer();
         visualPath.SetColors (Color.red,Color.blue);
-        visualPath.SetWidth(.75f, .75f);
+        visualPath.SetWidth(.5f, .5f);
         visualPath.positionCount = path.Count + 1;
 
         visualPath.SetPosition(0,start.gameObject.transform.position);
