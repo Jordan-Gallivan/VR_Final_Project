@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 110
+  controlID: 66
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 111
+  controlID: 67
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 112
+  controlID: 68
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -189,8 +189,8 @@ MonoBehaviour:
     y: 0
     width: 260
     height: 526.4
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -545,9 +545,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 29.829998, y: 0.83733666, z: 20.155752}
+    m_Target: {x: 20.258396, y: 1.3734018, z: 22.883818}
     speed: 2
-    m_Value: {x: 29.829998, y: 0.83733666, z: 20.155752}
+    m_Value: {x: 20.258396, y: 1.3734018, z: 22.883818}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -594,13 +594,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.010012545, y: 0.95775926, z: -0.28559226, w: -0.033316493}
+    m_Target: {x: 0.3601168, y: -0.012050272, z: 0.0046524215, w: 0.93290097}
     speed: 2
-    m_Value: {x: -0.010440525, y: 0.9576718, z: -0.28556606, w: -0.034751773}
+    m_Value: {x: 0.36009544, y: -0.010650082, z: 0.0041119223, w: 0.9328456}
   m_Size:
-    m_Target: 8.3027525
+    m_Target: 6.9766345
     speed: 2
-    m_Value: 7.9452176
+    m_Value: 6.676205
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -655,10 +655,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 12ad0000
-      m_LastClickedID: 44306
-      m_ExpandedIDs: 96eafeff4efafeff0259ffff2efbffffa468000024770000d67c00003c820000
+      scrollPos: {x: 0, y: 16}
+      m_SelectedIDs: 88680000
+      m_LastClickedID: 26760
+      m_ExpandedIDs: ac8cfeffca3fffff30fbffffa8680000d26f00005c7700009682000084840000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -856,22 +856,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Imported Assets/AcousticGuitar/ModelAndTextures
+    - Assets/Imported Assets/ElectricGuitars/ElectricGuitar_st/Prefab
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 39
   m_LastFolders:
-  - Assets/Imported Assets/AcousticGuitar/ModelAndTextures
+  - Assets/Imported Assets/ElectricGuitars/ElectricGuitar_st/Prefab
   m_LastFoldersGridSize: 39
   m_LastProjectPath: D:\VR Final Project\VR_Final_Project\My project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 31}
-    m_SelectedIDs: 6a980000
-    m_LastClickedID: 39018
-    m_ExpandedIDs: 00000000129700001497000016970000189700001a9700001c9700001e97000020970000229700002497000026970000289700002a9700002c9700002e97000030970000329700003497000036970000389700003a9700003c9700003e97000040970000429700004497000046970000489700004a9700004c97000052970000b29a0000a29c0000a69c0000f4550100f8550100
+    scrollPos: {x: 0, y: 612.60004}
+    m_SelectedIDs: f4980000
+    m_LastClickedID: 39156
+    m_ExpandedIDs: 000000007a9800007c9800007e98000080980000829800008498000086980000889800008a9800008c9800008e98000090980000929800009498000096980000989800009a9800009c9800009e980000a0980000a2980000a4980000a6980000a8980000aa980000ac980000ae980000b0980000b2980000b4980000b6980000bc980000cc98000016ac000022ac0000c0ae0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -899,7 +899,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000129700001497000016970000189700001a9700001c9700001e97000020970000229700002497000026970000289700002a9700002c9700002e97000030970000329700003497000036970000389700003a9700003c9700003e97000040970000429700004497000046970000489700004a9700004c970000
+    m_ExpandedIDs: 000000007a9800007c9800007e98000080980000829800008498000086980000889800008a9800008c9800008e98000090980000929800009498000096980000989800009a9800009c9800009e980000a0980000a2980000a4980000a6980000a8980000aa980000ac980000ae980000b0980000b2980000b4980000b6980000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
