@@ -322,6 +322,8 @@
 -r:"D:/Unity/2021.3.17f1/Editor/Data/NetStandard/compat/2.1.0/shims/netstandard/System.Xml.XPath.XDocument.dll"
 -r:"D:/Unity/2021.3.17f1/Editor/Data/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll"
 -r:"D:/Unity/2021.3.17f1/Editor/Data/NetStandard/ref/2.1.0/netstandard.dll"
+-r:"D:/Unity/2021.3.17f1/Editor/Data/PlaybackEngines/AndroidPlayer/Unity.Android.Gradle.dll"
+-r:"D:/Unity/2021.3.17f1/Editor/Data/PlaybackEngines/AndroidPlayer/Unity.Android.Types.dll"
 -r:"D:/VR Final Project/VR_Final_Project/My project/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
 -r:"D:/VR Final Project/VR_Final_Project/My project/Library/PackageCache/com.unity.testtools.codecoverage@1.2.2/lib/ReportGenerator/ReportGeneratorMerged.dll"
 -r:"D:/VR Final Project/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
