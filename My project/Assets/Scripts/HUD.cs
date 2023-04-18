@@ -5,24 +5,25 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class HUD : MonoBehaviour
 {
     private List<string> rightSideData;
 
-    [SerializeField] private GameObject period_neg2_GO;
-    [SerializeField] private GameObject period_neg1_GO;
-    [SerializeField] private GameObject selected_period_GO;
-    [SerializeField] private GameObject period_plus1_GO;
-    [SerializeField] private GameObject period_plus2_GO;
+    [SerializeField] private GameObject right_neg2_GO;
+    [SerializeField] private GameObject right_neg1_GO;
+    [SerializeField] private GameObject right_selected_GO;
+    [SerializeField] private GameObject right_plus1_GO;
+    [SerializeField] private GameObject right_plus2_GO;
 
     [SerializeField] private GameObject exhibitGO;
 
-    private TextMeshPro periodNeg2TMP;
-    private TextMeshPro periodNeg1TMP;
-    private TextMeshPro selectedPeriodTMP;
-    private TextMeshPro periodPlus1TMP;
-    private TextMeshPro periodPlus2TMP;
+    private TextMeshPro rightNeg2TMP;
+    private TextMeshPro rightNeg1TMP;
+    private TextMeshPro rightSelectedTMP;
+    private TextMeshPro rightPlus1TMP;
+    private TextMeshPro rightPlus2TMP;
 
     private List<string> displayPeriods;
     private int selectedPeriodIndex;
@@ -35,16 +36,16 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        periodNeg2TMP = period_neg2_GO.GetComponent<TextMeshPro>();
-        periodNeg1TMP = period_neg1_GO.GetComponent<TextMeshPro>();
-        selectedPeriodTMP = selected_period_GO.GetComponent<TextMeshPro>();
-        periodPlus1TMP = period_plus1_GO.GetComponent<TextMeshPro>();
-        periodPlus2TMP = period_plus2_GO.GetComponent<TextMeshPro>();
+        rightNeg2TMP = right_neg2_GO.GetComponent<TextMeshPro>();
+        rightNeg1TMP = right_neg1_GO.GetComponent<TextMeshPro>();
+        rightSelectedTMP = right_selected_GO.GetComponent<TextMeshPro>();
+        rightPlus1TMP = right_plus1_GO.GetComponent<TextMeshPro>();
+        rightPlus2TMP = right_plus2_GO.GetComponent<TextMeshPro>();
         
-        displayPeriods = new List<string> { "Pre-War", "1950's", "1960's", "1970's", 
+        displayPeriods = new List<string> {"Pre-War", "1950's", "1960's", "1970's", 
             "1980's", "1990's", "2000's"};
         selectedPeriodIndex = displayPeriods.Count / 2;
-        updatePeriod(0);
+        UpdatePeriod(0);
         
         ParseExhibitDoc();
         
@@ -53,11 +54,11 @@ public class HUD : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("t")) updatePeriod(1);
-        if (Input.GetKeyDown("g")) updatePeriod(-1);
+        if (Input.GetKeyDown("t")) UpdatePeriod(1);
+        if (Input.GetKeyDown("g")) UpdatePeriod(-1);
     }
 
-    public void updatePeriod(int dir)
+    public void UpdatePeriod(int dir)
     {
         selectedPeriodIndex += -dir;
         if (selectedPeriodIndex >= displayPeriods.Count) 
@@ -65,26 +66,26 @@ public class HUD : MonoBehaviour
         if (selectedPeriodIndex < 0) 
             selectedPeriodIndex = 0;
 
-        selectedPeriodTMP.text = displayPeriods[selectedPeriodIndex];
+        rightSelectedTMP.text = displayPeriods[selectedPeriodIndex];
         if (selectedPeriodIndex >= 1)
-            periodNeg1TMP.text = displayPeriods[selectedPeriodIndex - 1];
+            rightNeg1TMP.text = displayPeriods[selectedPeriodIndex - 1];
         else
-            periodNeg1TMP.text = "";
+            rightNeg1TMP.text = "";
                 
         if (selectedPeriodIndex >= 2)
-            periodNeg2TMP.text = displayPeriods[selectedPeriodIndex - 2];
+            rightNeg2TMP.text = displayPeriods[selectedPeriodIndex - 2];
         else
-            periodNeg2TMP.text = "";
+            rightNeg2TMP.text = "";
         
         if (selectedPeriodIndex <= (displayPeriods.Count - 2))
-            periodPlus1TMP.text = displayPeriods[selectedPeriodIndex + 1];
+            rightPlus1TMP.text = displayPeriods[selectedPeriodIndex + 1];
         else
-            periodPlus1TMP.text = "";
+            rightPlus1TMP.text = "";
         
         if (selectedPeriodIndex <= (displayPeriods.Count - 3))
-            periodPlus2TMP.text = displayPeriods[selectedPeriodIndex + 2];
+            rightPlus2TMP.text = displayPeriods[selectedPeriodIndex + 2];
         else
-            periodPlus2TMP.text = "";
+            rightPlus2TMP.text = "";
     }
 
     public void ActivateHUD()
