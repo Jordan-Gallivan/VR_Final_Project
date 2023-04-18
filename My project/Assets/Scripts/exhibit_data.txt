@@ -84,11 +84,11 @@ Ray Charles was born on September 23, 1930, in Albany Georgia. His family moved 
 </artist>
 
 <artist>
-Classic IV
+Classics IV
 <brief>
 Formed in Jacksonville in the late 1960’s
 “Stormy” and "Spooky”
-Bassist was a professor at FSCJ
+Walter Eaton was a professor at FSCJ
 </brief>
 <bio>
 The Classic IV originated in the city of Jacksonville and was influential during the 1960’s and 1970’s. The band originally consisted of J.R. Cobb, Walter Eaton, Joe Wilson, Greg Carrol, and founder Dennis Yost. The bands most notable songs were, “Stormy” and “Spooky”. Yet, throughout the years, their sounds differed from their original sound.
@@ -101,7 +101,7 @@ The Classic IV originated in the city of Jacksonville and was influential during
 1970's
 </time>
 <artist>
-Allman Brothers Band
+The Allman Brothers Band
 <brief>
 One of the Earliest Southern Rock Bands
 "Midnight Rider", "Ramblin' Man", "Melissa" and "Statesboro Blues"
@@ -148,7 +148,7 @@ Lynard Skynyrd was one of the most influential bands of all time. Founded in Jac
 <artist>
 Ma$e
 <brief>
-"Harlem World", "Mo' Money, Mo' Problems"
+"Harlem World", "Mo' Money, Mo' Problems", "Can't Nobody Hold Me Down"
 </brief>
 <bio>
 Ma$e was born in Jacksonville, Florida, in 1975. He would live in several places as a child, but eventually would find himself in New York where he began rapping with members of his basketball team. Eventually, he would join a group named Children of the Corn, but would soon find himself performing solo after the group broke up. He was soon signed by Bad Boy after meeting Sean “Puffy” Combs in 1996. He rapped on Combs remix of “Only You”, and after this, he found himself on almost every project Combs release. He rapped on songs like “Mo’ Money, Mo’ Problems” and “Cant Nobody Hold Me Down”. He would release his own album, Harlem World, in 1997. Harlem World was an instant hit and spent its first two weeks on top of the billboard’s album charts. However, one year later he was arrested for disorderly conduct and was shrouded in controversies, but this did not stop him from releasing the album The Movement in 1999 with his own group also named Harem World. He released his own album Double Up soon after. However, he announced retirement wanting to pursue ministry after a so-called vision of himself leading people into hell. He worked with youth groups, was an inspirational speaker, and released a memoir before releasing his final album Welcome Back in 2004.
@@ -173,7 +173,6 @@ Tim McGraw, son of pitcher Tug McGraw, was born in Delhi, Louisiana in 1967. He 
 
 <artist>
 Shine Down
-
 <brief>
 “Fly from the Inside”, "Second Chances", and "45"
 </brief>
@@ -183,12 +182,12 @@ Hard Rock band, Shinedown, started in Jacksonville Florida and gained popularity
 </artist>
 
 <artist>
-Yellow Card
+Yellowcard
 <brief>
 "Ocean Avenue", "Only One"
 </brief>
 <bio>
-Yellow Card formed in Jacksonville in 1997, but did not reach success until the early 2000’s.  Their first album, One for the Kids, debuted in 2001. While the band has had several different members throughout the years, that did not stop them from going double platinum in 2004 with Ocean Avenue. Ocean Avene has songs like, “Way Away” and, “Only One”. The band toured until 2017 after the final tour of their last album. However, the band reunited in 2022 and still tours today.
+Yellowcard formed in Jacksonville in 1997, but did not reach success until the early 2000’s.  Their first album, One for the Kids, debuted in 2001. While the band has had several different members throughout the years, that did not stop them from going double platinum in 2004 with Ocean Avenue. Ocean Avene has songs like, “Way Away” and, “Only One”. The band toured until 2017 after the final tour of their last album. However, the band reunited in 2022 and still tours today.
 </bio>
 </artist>
 </period>

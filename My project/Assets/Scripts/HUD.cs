@@ -107,11 +107,11 @@ public class HUD : MonoBehaviour
             artistDict.Add(a.GameObject().name, a.GameObject().GetComponent<Artist>());
         }
         
-        Stack<Period> periodStack = new Stack<Period>();    // stack index 0
-        // time                                             // stack index 1
-        Stack<Artist> artistStack = new Stack<Artist>();    // stack index 2
-        Stack<string> briefStack = new Stack<string>();     // stack index 3
-        Stack<string> bioStack = new Stack<string>();       // stack index 4
+        Queue<Period> periodQ = new Queue<Period>();    // stack index 0
+        // time                                         // stack index 1
+        Queue<Artist> artistQ = new Queue<Artist>();    // stack index 2
+        Queue<string> briefQ = new Queue<string>();     // stack index 3
+        Queue<string> bioQ = new Queue<string>();       // stack index 4
         Artist currArtist = null;
         int stackIndex = -1;
         
@@ -133,7 +133,7 @@ public class HUD : MonoBehaviour
                             break;
                         case "</brief>":
                             if (currArtist != null)
-                                while(briefStack.TryPop(out var brief))
+                                while(briefQ.TryDequeue(out var brief))
                                     currArtist.AddToBrief(brief);
 
                             stackIndex = -1;
@@ -143,7 +143,7 @@ public class HUD : MonoBehaviour
                             break;
                         case "</bio>":
                             if (currArtist != null)
-                                while (bioStack.TryPop(out var bio))
+                                while (bioQ.TryDequeue(out var bio))
                                     currArtist.AddToBio(bio);
 
                             stackIndex = -1;
@@ -153,13 +153,13 @@ public class HUD : MonoBehaviour
                             stackIndex = 2;
                             break;
                         case "</artist>":
-                            if (currArtist != null) artistStack.Push(currArtist);
+                            if (currArtist != null) artistQ.Enqueue(currArtist);
                             currArtist = null;
                             stackIndex = -1;
                             break;
                         case "</period>":
-                            var p = periodStack.Pop();
-                            while(artistStack.TryPop(out var a))
+                            var p = periodQ.Dequeue();
+                            while(artistQ.TryDequeue(out var a))
                                 p.addArtist(a);
 
                             periodDict.Add(p.PeriodName, p);
@@ -173,7 +173,7 @@ public class HUD : MonoBehaviour
                             switch (stackIndex)
                             {
                                 case 1:
-                                    periodStack.Push(new Period(line));
+                                    periodQ.Enqueue(new Period(line));
                                     stackIndex = -1;
                                     break;
                                 case 2:
@@ -182,10 +182,10 @@ public class HUD : MonoBehaviour
                                     stackIndex = -1;
                                     break;
                                 case 3:
-                                    briefStack.Push(line);
+                                    briefQ.Enqueue(line);
                                     break;
                                 case 4:
-                                    bioStack.Push(line);
+                                    bioQ.Enqueue(line);
                                     break;
                                 default:
                                     break;
