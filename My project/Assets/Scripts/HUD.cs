@@ -9,6 +9,8 @@ using UnityEngine.Serialization;
 
 public class HUD : MonoBehaviour
 {
+    [SerializeField] private GameObject HUDGO;
+    
     private List<string> rightSideData;
 
     [SerializeField] private GameObject right_neg2_GO;
@@ -35,6 +37,10 @@ public class HUD : MonoBehaviour
     private TextMeshPro leftPlus1TMP;
     private TextMeshPro leftPlus2TMP;
 
+    [SerializeField] private GameObject Bio_Pane;
+    [SerializeField] private GameObject BIO_Content;
+    private TextMeshProUGUI bioContentTMP;
+
     [SerializeField] private GameObject exhibitGO;
 
     
@@ -48,6 +54,8 @@ public class HUD : MonoBehaviour
     private Dictionary<string, Artist> artistDict;
 
     private bool HUDActive;
+    private bool briefActive;
+    private bool bioActive;
     
     // Start is called before the first frame update
     void Start()
@@ -64,15 +72,14 @@ public class HUD : MonoBehaviour
         leftPlus1TMP = left_plus1_GO.GetComponent<TextMeshPro>();
         leftPlus2TMP = left_plus2_GO.GetComponent<TextMeshPro>();
 
+        bioContentTMP = BIO_Content.GetComponent<TextMeshProUGUI>();
+
         displayPeriods = new List<string>();
         
         ParseExhibitDoc();
 
-        selectedPeriodIndex = displayPeriods.Count / 2;
-        selectedArtistIndex = 0;
-        UpdatePeriod(0);
-        
-        HUDActive = true;
+        ActivateHUD();
+
     }
 
     private void Update()
@@ -146,14 +153,28 @@ public class HUD : MonoBehaviour
             leftPlus2TMP.text = "";
     }
 
+    public void ActivateBio()
+    {
+        Bio_Pane.SetActive(true);
+        bioContentTMP.text = displayArtists[selectedArtistIndex].Bio;
+    }
+
+    public void DeActivateBio()
+    {
+        Bio_Pane.SetActive(false);
+    }
+
     public void ActivateHUD()
     {
-        HUDActive = true;
+        HUDGO.SetActive(true);
+        DeActivateBio();
+        selectedPeriodIndex = displayPeriods.Count / 2;
+        UpdatePeriod(0);
     }
     
     public void DeActivateHUD()
     {
-        HUDActive = false;
+        HUDGO.SetActive(false);
     }
 
     private void ParseExhibitDoc()

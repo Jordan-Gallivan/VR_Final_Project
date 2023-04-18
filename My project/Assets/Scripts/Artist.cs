@@ -14,7 +14,8 @@ public class Artist : MonoBehaviour
 
     private List<Exhibit> exhibitObjects;
 
-    private string bio { get; set; }
+    private string bio;
+    public string Bio => bio;
 
     private void Start()
     {
