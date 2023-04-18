@@ -16,17 +16,33 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject right_selected_GO;
     [SerializeField] private GameObject right_plus1_GO;
     [SerializeField] private GameObject right_plus2_GO;
-
-    [SerializeField] private GameObject exhibitGO;
-
+    
     private TextMeshPro rightNeg2TMP;
     private TextMeshPro rightNeg1TMP;
     private TextMeshPro rightSelectedTMP;
     private TextMeshPro rightPlus1TMP;
     private TextMeshPro rightPlus2TMP;
+    
+    [SerializeField] private GameObject left_neg2_GO;
+    [SerializeField] private GameObject left_neg1_GO;
+    [SerializeField] private GameObject left_selected_GO;
+    [SerializeField] private GameObject left_plus1_GO;
+    [SerializeField] private GameObject left_plus2_GO;
+    
+    private TextMeshPro leftNeg2TMP;
+    private TextMeshPro leftNeg1TMP;
+    private TextMeshPro leftSelectedTMP;
+    private TextMeshPro leftPlus1TMP;
+    private TextMeshPro leftPlus2TMP;
+
+    [SerializeField] private GameObject exhibitGO;
+
+    
 
     private List<string> displayPeriods;
+    private List<Artist> displayArtists;
     private int selectedPeriodIndex;
+    private int selectedArtistIndex;
 
     private Dictionary<string, Period> periodDict;
     private Dictionary<string, Artist> artistDict;
@@ -42,12 +58,19 @@ public class HUD : MonoBehaviour
         rightPlus1TMP = right_plus1_GO.GetComponent<TextMeshPro>();
         rightPlus2TMP = right_plus2_GO.GetComponent<TextMeshPro>();
         
-        displayPeriods = new List<string> {"Pre-War", "1950's", "1960's", "1970's", 
-            "1980's", "1990's", "2000's"};
-        selectedPeriodIndex = displayPeriods.Count / 2;
-        UpdatePeriod(0);
+        leftNeg2TMP = left_neg2_GO.GetComponent<TextMeshPro>();
+        leftNeg1TMP = left_neg1_GO.GetComponent<TextMeshPro>();
+        leftSelectedTMP = left_selected_GO.GetComponent<TextMeshPro>();
+        leftPlus1TMP = left_plus1_GO.GetComponent<TextMeshPro>();
+        leftPlus2TMP = left_plus2_GO.GetComponent<TextMeshPro>();
+
+        displayPeriods = new List<string>();
         
         ParseExhibitDoc();
+
+        selectedPeriodIndex = displayPeriods.Count / 2;
+        selectedArtistIndex = 0;
+        UpdatePeriod(0);
         
         HUDActive = true;
     }
@@ -86,6 +109,41 @@ public class HUD : MonoBehaviour
             rightPlus2TMP.text = displayPeriods[selectedPeriodIndex + 2];
         else
             rightPlus2TMP.text = "";
+
+        displayArtists = periodDict[displayPeriods[selectedPeriodIndex]].getArtists;
+        selectedArtistIndex = displayArtists.Count / 2;
+        UpdateArtist(0);
+
+    }
+
+    public void UpdateArtist(int dir)
+    {
+        selectedArtistIndex += -dir;
+        if (selectedArtistIndex >= displayArtists.Count) 
+            selectedArtistIndex = displayArtists.Count - 1;
+        if (selectedArtistIndex < 0) 
+            selectedArtistIndex = 0;
+
+        leftSelectedTMP.text = displayArtists[selectedArtistIndex].ArtistName;
+        if (selectedArtistIndex >= 1)
+            leftNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
+        else
+            leftNeg1TMP.text = "";
+                
+        if (selectedArtistIndex >= 2)
+            leftNeg2TMP.text = displayArtists[selectedArtistIndex - 2].ArtistName;
+        else
+            leftNeg2TMP.text = "";
+        
+        if (selectedArtistIndex + 1 < displayArtists.Count)
+            leftPlus1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
+        else
+            leftPlus1TMP.text = "";
+        
+        if (selectedArtistIndex + 2 < displayArtists.Count )
+            leftPlus2TMP.text = displayArtists[selectedArtistIndex + 2].ArtistName;
+        else
+            leftPlus2TMP.text = "";
     }
 
     public void ActivateHUD()
@@ -161,7 +219,7 @@ public class HUD : MonoBehaviour
                         case "</period>":
                             var p = periodQ.Dequeue();
                             while(artistQ.TryDequeue(out var a))
-                                p.addArtist(a);
+                                p.AddArtist(a);
 
                             periodDict.Add(p.PeriodName, p);
                             stackIndex = -1;
@@ -195,6 +253,8 @@ public class HUD : MonoBehaviour
                     }
                 }
             }   // end of using StreamReader
+
+            
         }
         catch (Exception e)
         {
@@ -202,10 +262,17 @@ public class HUD : MonoBehaviour
             Debug.Log("The file could not be read:");
             Debug.Log(e.Message);
         }
+        foreach (var p in periodDict)
+        {
+            displayPeriods.Add(p.Key);
+        }
+        displayPeriods.Sort();
+        displayPeriods.Insert(0,displayPeriods[^1]);
+        displayPeriods.RemoveAt(displayPeriods.Count - 1);
     }
 
-    public string GetSelectedPeriod()
-    {
-        return displayPeriods[selectedPeriodIndex];
-    }
+    // public string GetSelectedPeriod()
+    // {
+    //     // return displayPeriods[selectedPeriodIndex];
+    // }
 }

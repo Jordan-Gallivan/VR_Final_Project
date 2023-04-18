@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Period
+public class Period : IComparable
 {
     private string periodName;
     public string PeriodName
@@ -10,7 +11,9 @@ public class Period
         get => periodName;
         set => periodName = value;
     }
-    public List<Artist> artists { get; }
+
+    private List<Artist> artists;
+    public List<Artist> getArtists => artists;
 
     public Period()
     {
@@ -23,8 +26,16 @@ public class Period
         periodName = name;
     }
 
-    public void addArtist(Artist artist)
+    public void AddArtist(Artist artist)
     {
         artists.Add(artist);
+    }
+
+    public int CompareTo(object other)
+    {
+        if (other.GetType() != this.GetType()) return 1;
+        Period otherPeriod = (Period)other;
+        if (otherPeriod.PeriodName == this.periodName) return 0;
+        else return String.Compare(this.periodName, otherPeriod.PeriodName, StringComparison.Ordinal);
     }
 }

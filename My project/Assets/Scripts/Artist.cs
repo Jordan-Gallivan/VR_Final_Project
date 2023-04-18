@@ -21,6 +21,7 @@ public class Artist : MonoBehaviour
         brief = new List<string>();
         bio = "";
         exhibitObjects = new List<Exhibit>();
+        artistName = this.name;
         
         foreach (Transform child in this.transform)
         {
