@@ -5,7 +5,7 @@ using UnityEngine;
 public class Period
 {
     private string periodName;
-    private string PeriodName
+    public string PeriodName
     {
         get => periodName;
         set => periodName = value;
