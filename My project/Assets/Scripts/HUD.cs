@@ -9,6 +9,11 @@ using UnityEngine.Serialization;
 
 public class HUD : MonoBehaviour
 {
+    
+    /* To Do
+     o period selected, then show artist
+     */
+    
     [SerializeField] private GameObject HUDGO;
     
     private List<string> rightSideData;
@@ -28,6 +33,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject left_neg2_GO;
     [SerializeField] private GameObject left_neg1_GO;
     [SerializeField] private GameObject left_selected_GO;
+    [SerializeField] private GameObject left_plus1_GO;
     [SerializeField] private GameObject left_brief1_GO;
     [SerializeField] private GameObject left_brief2_GO;
     [SerializeField] private GameObject left_brief3_GO;
@@ -36,11 +42,24 @@ public class HUD : MonoBehaviour
     private TextMeshPro leftNeg2TMP;
     private TextMeshPro leftNeg1TMP;
     private TextMeshPro leftSelectedTMP;
+    private TextMeshPro leftPlus1TMP;
     private TextMeshPro leftBrief1TMP;
     private TextMeshPro leftBrief2TMP;
     private TextMeshPro leftBrief3TMP;
     private TextMeshPro leftBrief4TMP;
     private List<TextMeshPro> briefTMPs;
+    
+    [SerializeField] private GameObject exhibit_neg2_GO;
+    [SerializeField] private GameObject exhibit_neg1_GO;
+    [SerializeField] private GameObject exhibit_selected_GO;
+    [SerializeField] private GameObject exhibit_plus1_GO;
+    [SerializeField] private GameObject exhibit_plus2_GO;
+    
+    private TextMeshPro exhibitNeg2TMP;
+    private TextMeshPro exhibitNeg1TMP;
+    private TextMeshPro exhibitSelectedTMP;
+    private TextMeshPro exhibitPlus1TMP;
+    private TextMeshPro exhibitPlus2TMP;
 
     [SerializeField] private GameObject Bio_Pane;
     [SerializeField] private GameObject BIO_Content;
@@ -52,8 +71,10 @@ public class HUD : MonoBehaviour
 
     private List<string> displayPeriods;
     private List<Artist> displayArtists;
+    private List<Exhibit> displayExhibits;
     private int selectedPeriodIndex;
     private int selectedArtistIndex;
+    private int selectedExhibitIndex;
 
     private Dictionary<string, Period> periodDict;
     private Dictionary<string, Artist> artistDict;
@@ -84,10 +105,17 @@ public class HUD : MonoBehaviour
         leftNeg2TMP = left_neg2_GO.GetComponent<TextMeshPro>();
         leftNeg1TMP = left_neg1_GO.GetComponent<TextMeshPro>();
         leftSelectedTMP = left_selected_GO.GetComponent<TextMeshPro>();
+        leftPlus1TMP = left_plus1_GO.GetComponent<TextMeshPro>();
         leftBrief1TMP = left_brief1_GO.GetComponent<TextMeshPro>();
         leftBrief2TMP = left_brief2_GO.GetComponent<TextMeshPro>();
         leftBrief3TMP = left_brief3_GO.GetComponent<TextMeshPro>();
         leftBrief4TMP = left_brief4_GO.GetComponent<TextMeshPro>();
+        
+        exhibitNeg2TMP = exhibit_neg2_GO.GetComponent<TextMeshPro>();
+        exhibitNeg1TMP = exhibit_neg1_GO.GetComponent<TextMeshPro>();
+        exhibitSelectedTMP = exhibit_selected_GO.GetComponent<TextMeshPro>();
+        exhibitPlus1TMP = exhibit_plus1_GO.GetComponent<TextMeshPro>();
+        exhibitPlus2TMP = exhibit_plus2_GO.GetComponent<TextMeshPro>();
 
         briefTMPs = new List<TextMeshPro>
         {
@@ -162,7 +190,7 @@ public class HUD : MonoBehaviour
         int i = 0;
         while (i < briefTMPs.Count && i < displayArtists[selectedArtistIndex].Brief.Count)
         {
-            briefTMPs[i].text = displayArtists[selectedArtistIndex].Brief[i];
+            briefTMPs[i].text = "-" + displayArtists[selectedArtistIndex].Brief[i];
             i++;
         }
         while (i < briefTMPs.Count)
@@ -170,8 +198,11 @@ public class HUD : MonoBehaviour
             briefTMPs[i].text = "";
             i++;
         }
-        
-        
+
+        displayExhibits = displayArtists[selectedArtistIndex].Exhibits;
+        displayExhibits.Insert(0,null);
+        selectedExhibitIndex = displayExhibits.Count / 2;
+
         if (selectedArtistIndex >= 1)
             leftNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
         else
@@ -182,23 +213,61 @@ public class HUD : MonoBehaviour
         else
             leftNeg2TMP.text = "";
         
-        // if (selectedArtistIndex + 1 < displayArtists.Count)
-        //     leftBrief1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
-        // else
-        //     leftBrief1TMP.text = "";
-        //
+        if (selectedArtistIndex + 1 < displayArtists.Count)
+            leftPlus1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
+        else
+            leftPlus1TMP.text = "";
+        
         // if (selectedArtistIndex + 2 < displayArtists.Count )
         //     leftBrief2TMP.text = displayArtists[selectedArtistIndex + 2].ArtistName;
         // else
         //     leftBrief2TMP.text = "";
     }
 
-    private void ActivateExhibits()
+    private void UpdateExhibit(int dir)
+    {
+        // conditional to check null = bio
+        selectedExhibitIndex += -dir;
+        if (selectedExhibitIndex >= displayExhibits.Count) 
+            selectedExhibitIndex = displayExhibits.Count - 1;
+        if (selectedExhibitIndex < 0) 
+            selectedExhibitIndex = 0;
+
+        exhibitSelectedTMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex]);
+        if (selectedExhibitIndex >= 1)
+            exhibitNeg1TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex - 1]);
+        else
+            exhibitNeg1TMP.text = "";
+                
+        if (selectedExhibitIndex >= 2)
+            exhibitNeg2TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex - 2]);
+        else
+            exhibitNeg2TMP.text = "";
+        
+        if (selectedExhibitIndex <= (displayExhibits.Count - 2))
+            exhibitPlus1TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex + 1]);
+        else
+            exhibitPlus1TMP.text = "";
+        
+        if (selectedExhibitIndex <= (displayExhibits.Count - 3))
+            exhibitPlus2TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex + 2]);
+        else
+            exhibitPlus2TMP.text = "";
+        
+    }
+
+    private string NullExhibitCheck(Exhibit e)
+    {
+        if (e == null) return "Bio";
+        return e.ExhibitName;
+    }
+
+    private void ActivateExhibitSelection()
     {
         // functionality here
     }
 
-    private void DeActivateExhibits()
+    private void DeActivateExhibitSelection()
     {
         // functionality here
     }
@@ -240,7 +309,7 @@ public class HUD : MonoBehaviour
         switch (leftCurrentPane)
         {
             case leftLRCursor.ExhibitSelection:
-                DeActivateExhibits();
+                DeActivateExhibitSelection();
                 leftCurrentPane = leftLRCursor.Artist;
                 break;
             case leftLRCursor.Bio:
@@ -263,7 +332,7 @@ public class HUD : MonoBehaviour
         {
             case leftLRCursor.Artist:
                 leftCurrentPane = leftLRCursor.ExhibitSelection;
-                ActivateExhibits();
+                ActivateExhibitSelection();
                 break;
             case leftLRCursor.ExhibitSelection:
                 //conditional to check if bio selected or exhibit selected

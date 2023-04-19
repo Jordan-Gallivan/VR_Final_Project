@@ -13,6 +13,7 @@ public class Artist : MonoBehaviour
     public List<string> Brief => brief;
 
     private List<Exhibit> exhibitObjects;
+    public List<Exhibit> Exhibits => exhibitObjects;
 
     private string bio;
     public string Bio => bio;
