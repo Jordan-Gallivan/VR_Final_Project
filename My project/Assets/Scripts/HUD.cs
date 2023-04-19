@@ -18,6 +18,7 @@ public class HUD : MonoBehaviour
     
     private List<string> rightSideData;
 
+    [SerializeField] private GameObject period_GO;
     [SerializeField] private GameObject period_neg2_GO;
     [SerializeField] private GameObject period_neg1_GO;
     [SerializeField] private GameObject period_selected_GO;
@@ -29,15 +30,16 @@ public class HUD : MonoBehaviour
     private TextMeshPro periodSelectedTMP;
     private TextMeshPro periodPlus1TMP;
     private TextMeshPro periodPlus2TMP;
-    
-    [FormerlySerializedAs("left_neg2_GO")] [SerializeField] private GameObject artist_neg2_GO;
-    [FormerlySerializedAs("left_neg1_GO")] [SerializeField] private GameObject artist_neg1_GO;
-    [FormerlySerializedAs("left_selected_GO")] [SerializeField] private GameObject artist_selected_GO;
-    [FormerlySerializedAs("left_plus1_GO")] [SerializeField] private GameObject artist_plus1_GO;
-    [FormerlySerializedAs("left_brief1_GO")] [SerializeField] private GameObject artist_brief1_GO;
-    [FormerlySerializedAs("left_brief2_GO")] [SerializeField] private GameObject artist_brief2_GO;
-    [FormerlySerializedAs("left_brief3_GO")] [SerializeField] private GameObject artist_brief3_GO;
-    [FormerlySerializedAs("left_brief4_GO")] [SerializeField] private GameObject artist_brief4_GO;
+
+    [SerializeField] private GameObject artist_GO;
+    [SerializeField] private GameObject artist_neg2_GO;
+    [SerializeField] private GameObject artist_neg1_GO;
+    [SerializeField] private GameObject artist_selected_GO;
+    [SerializeField] private GameObject artist_plus1_GO;
+    [SerializeField] private GameObject artist_brief1_GO;
+    [SerializeField] private GameObject artist_brief2_GO;
+    [SerializeField] private GameObject artist_brief3_GO;
+    [SerializeField] private GameObject artist_brief4_GO;
     
     private TextMeshPro artistNeg2TMP;
     private TextMeshPro artistNeg1TMP;
@@ -48,7 +50,8 @@ public class HUD : MonoBehaviour
     private TextMeshPro artistBrief3TMP;
     private TextMeshPro artistBrief4TMP;
     private List<TextMeshPro> briefTMPs;
-    
+
+    [SerializeField] private GameObject exhibit_GO;
     [SerializeField] private GameObject exhibit_neg2_GO;
     [SerializeField] private GameObject exhibit_neg1_GO;
     [SerializeField] private GameObject exhibit_selected_GO;
@@ -83,15 +86,16 @@ public class HUD : MonoBehaviour
     private bool HUDActive;
 
 
-    private enum leftLRCursor
+    private enum LRCursor
     {
+        Period,
         Artist,
         ExhibitSelection,
         Bio,
         Exhibit
     }
 
-    private leftLRCursor leftCurrentPane;
+    private LRCursor _currentPane;
     
     // Start is called before the first frame update
     void Start()
@@ -125,7 +129,7 @@ public class HUD : MonoBehaviour
             artistBrief4TMP
         };
 
-        leftCurrentPane = leftLRCursor.Artist;
+        _currentPane = LRCursor.Artist;
 
         bioContentTMP = BIO_Content.GetComponent<TextMeshProUGUI>();
 
@@ -171,11 +175,7 @@ public class HUD : MonoBehaviour
             periodPlus2TMP.text = displayPeriods[selectedPeriodIndex + 2];
         else
             periodPlus2TMP.text = "";
-
-        displayArtists = periodDict[displayPeriods[selectedPeriodIndex]].getArtists;
-        selectedArtistIndex = displayArtists.Count / 2;
-        UpdateArtist(0);
-
+        
     }
 
     public void UpdateArtist(int dir)
@@ -198,10 +198,7 @@ public class HUD : MonoBehaviour
             briefTMPs[i].text = "";
             i++;
         }
-
-        displayExhibits = displayArtists[selectedArtistIndex].Exhibits;
-        displayExhibits.Insert(0,null);
-        selectedExhibitIndex = displayExhibits.Count / 2;
+        
 
         if (selectedArtistIndex >= 1)
             artistNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
@@ -262,14 +259,29 @@ public class HUD : MonoBehaviour
         return e.ExhibitName;
     }
 
+    private void ActivateArtist()
+    {
+        artist_GO.SetActive(true);
+        displayArtists = periodDict[displayPeriods[selectedPeriodIndex]].getArtists;
+        selectedArtistIndex = displayArtists.Count / 2;
+        UpdateArtist(0);
+    }
+
+    private void DeActivateArtist()
+    {
+        artist_GO.SetActive(false);
+    }
     private void ActivateExhibitSelection()
     {
-        // functionality here
+        exhibit_GO.SetActive(true);
+        displayExhibits = displayArtists[selectedArtistIndex].Exhibits;
+        displayExhibits.Insert(0,null);
+        selectedExhibitIndex = displayExhibits.Count / 2;
     }
 
     private void DeActivateExhibitSelection()
     {
-        // functionality here
+        exhibit_GO.SetActive(false);
     }
 
     private void ActivateExhibitMenu()
@@ -303,46 +315,55 @@ public class HUD : MonoBehaviour
         Bio_Pane.SetActive(false);
     }
 
-    public void LeftSwipeLeft()
+    public void SwipeLeft()
     {
         if (!HUDActive) return;
-        switch (leftCurrentPane)
+        switch (_currentPane)
         {
-            case leftLRCursor.ExhibitSelection:
+            case LRCursor.Period:
+                break;
+            case LRCursor.Artist:
+                _currentPane = LRCursor.Period;
+                break;
+            case LRCursor.ExhibitSelection:
                 DeActivateExhibitSelection();
-                leftCurrentPane = leftLRCursor.Artist;
+                _currentPane = LRCursor.Artist;
                 break;
-            case leftLRCursor.Bio:
+            case LRCursor.Bio:
                 DeActivateBio();
-                leftCurrentPane = leftLRCursor.ExhibitSelection;
+                _currentPane = LRCursor.ExhibitSelection;
                 break;
-            case leftLRCursor.Exhibit:
+            case LRCursor.Exhibit:
                 DeActivatedExhibitOptions();
-                leftCurrentPane = leftLRCursor.ExhibitSelection;
+                _currentPane = LRCursor.ExhibitSelection;
                 break;
             default:
                 break;
         }
     }
 
-    public void LeftSwipeRight()
+    public void SwipeRight()
     {
         if (!HUDActive) return;
-        switch (leftCurrentPane)
+        switch (_currentPane)
         {
-            case leftLRCursor.Artist:
-                leftCurrentPane = leftLRCursor.ExhibitSelection;
+            case LRCursor.Period:
+                periodNeg2TMP.text = periodNeg1TMP.text = periodPlus1TMP.text = periodPlus2TMP.text = "";
+                _currentPane = LRCursor.Artist;
+                break;
+            case LRCursor.Artist:
+                _currentPane = LRCursor.ExhibitSelection;
                 ActivateExhibitSelection();
                 break;
-            case leftLRCursor.ExhibitSelection:
+            case LRCursor.ExhibitSelection:
                 //conditional to check if bio selected or exhibit selected
                 // bio => leftCurrentPane = leftLRCursor.Bio;
                 //  ActivateBio();
                 // exhibit => leftCurrentPane = leftLRCursor.Exhibit;
                 //  ActivateExhibitOptions();
                 break;
-            case leftLRCursor.Bio:
-            case leftLRCursor.Exhibit:
+            case LRCursor.Bio:
+            case LRCursor.Exhibit:
                 break;
             default:
                 break;
