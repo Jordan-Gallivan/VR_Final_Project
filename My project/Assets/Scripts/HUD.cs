@@ -28,14 +28,19 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject left_neg2_GO;
     [SerializeField] private GameObject left_neg1_GO;
     [SerializeField] private GameObject left_selected_GO;
-    [SerializeField] private GameObject left_plus1_GO;
-    [SerializeField] private GameObject left_plus2_GO;
+    [SerializeField] private GameObject left_brief1_GO;
+    [SerializeField] private GameObject left_brief2_GO;
+    [SerializeField] private GameObject left_brief3_GO;
+    [SerializeField] private GameObject left_brief4_GO;
     
     private TextMeshPro leftNeg2TMP;
     private TextMeshPro leftNeg1TMP;
     private TextMeshPro leftSelectedTMP;
-    private TextMeshPro leftPlus1TMP;
-    private TextMeshPro leftPlus2TMP;
+    private TextMeshPro leftBrief1TMP;
+    private TextMeshPro leftBrief2TMP;
+    private TextMeshPro leftBrief3TMP;
+    private TextMeshPro leftBrief4TMP;
+    private List<TextMeshPro> briefTMPs;
 
     [SerializeField] private GameObject Bio_Pane;
     [SerializeField] private GameObject BIO_Content;
@@ -52,10 +57,20 @@ public class HUD : MonoBehaviour
 
     private Dictionary<string, Period> periodDict;
     private Dictionary<string, Artist> artistDict;
-
+    
+    // Booleans for HUD Display
     private bool HUDActive;
-    private bool briefActive;
-    private bool bioActive;
+
+
+    private enum leftLRCursor
+    {
+        Artist,
+        ExhibitSelection,
+        Bio,
+        Exhibit
+    }
+
+    private leftLRCursor leftCurrentPane;
     
     // Start is called before the first frame update
     void Start()
@@ -69,8 +84,20 @@ public class HUD : MonoBehaviour
         leftNeg2TMP = left_neg2_GO.GetComponent<TextMeshPro>();
         leftNeg1TMP = left_neg1_GO.GetComponent<TextMeshPro>();
         leftSelectedTMP = left_selected_GO.GetComponent<TextMeshPro>();
-        leftPlus1TMP = left_plus1_GO.GetComponent<TextMeshPro>();
-        leftPlus2TMP = left_plus2_GO.GetComponent<TextMeshPro>();
+        leftBrief1TMP = left_brief1_GO.GetComponent<TextMeshPro>();
+        leftBrief2TMP = left_brief2_GO.GetComponent<TextMeshPro>();
+        leftBrief3TMP = left_brief3_GO.GetComponent<TextMeshPro>();
+        leftBrief4TMP = left_brief4_GO.GetComponent<TextMeshPro>();
+
+        briefTMPs = new List<TextMeshPro>
+        {
+            leftBrief1TMP,
+            leftBrief2TMP,
+            leftBrief3TMP,
+            leftBrief4TMP
+        };
+
+        leftCurrentPane = leftLRCursor.Artist;
 
         bioContentTMP = BIO_Content.GetComponent<TextMeshProUGUI>();
 
@@ -132,6 +159,19 @@ public class HUD : MonoBehaviour
             selectedArtistIndex = 0;
 
         leftSelectedTMP.text = displayArtists[selectedArtistIndex].ArtistName;
+        int i = 0;
+        while (i < briefTMPs.Count && i < displayArtists[selectedArtistIndex].Brief.Count)
+        {
+            briefTMPs[i].text = displayArtists[selectedArtistIndex].Brief[i];
+            i++;
+        }
+        while (i < briefTMPs.Count)
+        {
+            briefTMPs[i].text = "";
+            i++;
+        }
+        
+        
         if (selectedArtistIndex >= 1)
             leftNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
         else
@@ -142,17 +182,47 @@ public class HUD : MonoBehaviour
         else
             leftNeg2TMP.text = "";
         
-        if (selectedArtistIndex + 1 < displayArtists.Count)
-            leftPlus1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
-        else
-            leftPlus1TMP.text = "";
-        
-        if (selectedArtistIndex + 2 < displayArtists.Count )
-            leftPlus2TMP.text = displayArtists[selectedArtistIndex + 2].ArtistName;
-        else
-            leftPlus2TMP.text = "";
+        // if (selectedArtistIndex + 1 < displayArtists.Count)
+        //     leftBrief1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
+        // else
+        //     leftBrief1TMP.text = "";
+        //
+        // if (selectedArtistIndex + 2 < displayArtists.Count )
+        //     leftBrief2TMP.text = displayArtists[selectedArtistIndex + 2].ArtistName;
+        // else
+        //     leftBrief2TMP.text = "";
     }
 
+    private void ActivateExhibits()
+    {
+        // functionality here
+    }
+
+    private void DeActivateExhibits()
+    {
+        // functionality here
+    }
+
+    private void ActivateExhibitMenu()
+    {
+        // functionality here
+    }
+
+    public void DeActivateExhibitMenu()
+    {
+        // functionality here
+    }
+
+    private void ActivateExhibitOptions()
+    {
+        // functionality here
+    }
+
+    private void DeActivatedExhibitOptions()
+    {
+        // functionality here
+    }
+    
     public void ActivateBio()
     {
         Bio_Pane.SetActive(true);
@@ -163,6 +233,54 @@ public class HUD : MonoBehaviour
     {
         Bio_Pane.SetActive(false);
     }
+
+    public void LeftSwipeLeft()
+    {
+        if (!HUDActive) return;
+        switch (leftCurrentPane)
+        {
+            case leftLRCursor.ExhibitSelection:
+                DeActivateExhibits();
+                leftCurrentPane = leftLRCursor.Artist;
+                break;
+            case leftLRCursor.Bio:
+                DeActivateBio();
+                leftCurrentPane = leftLRCursor.ExhibitSelection;
+                break;
+            case leftLRCursor.Exhibit:
+                DeActivatedExhibitOptions();
+                leftCurrentPane = leftLRCursor.ExhibitSelection;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void LeftSwipeRight()
+    {
+        if (!HUDActive) return;
+        switch (leftCurrentPane)
+        {
+            case leftLRCursor.Artist:
+                leftCurrentPane = leftLRCursor.ExhibitSelection;
+                ActivateExhibits();
+                break;
+            case leftLRCursor.ExhibitSelection:
+                //conditional to check if bio selected or exhibit selected
+                // bio => leftCurrentPane = leftLRCursor.Bio;
+                //  ActivateBio();
+                // exhibit => leftCurrentPane = leftLRCursor.Exhibit;
+                //  ActivateExhibitOptions();
+                break;
+            case leftLRCursor.Bio:
+            case leftLRCursor.Exhibit:
+                break;
+            default:
+                break;
+        }
+    }
+
+    
 
     public void ActivateHUD()
     {
