@@ -36,6 +36,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject artist_neg1_GO;
     [SerializeField] private GameObject artist_selected_GO;
     [SerializeField] private GameObject artist_plus1_GO;
+    [SerializeField] private GameObject artist_briefs_GO;
     [SerializeField] private GameObject artist_brief1_GO;
     [SerializeField] private GameObject artist_brief2_GO;
     [SerializeField] private GameObject artist_brief3_GO;
@@ -63,6 +64,17 @@ public class HUD : MonoBehaviour
     private TextMeshPro exhibitSelectedTMP;
     private TextMeshPro exhibitPlus1TMP;
     private TextMeshPro exhibitPlus2TMP;
+
+    [SerializeField] private GameObject selected_exhibit_GO;    
+    [SerializeField] private GameObject exhibit_Name_GO;
+    [SerializeField] private GameObject exhibit_Desc_GO;
+    [SerializeField] private GameObject exhibit_NavTo_GO;
+    private string NavToString = "Swipe Right to Navigate to ";
+
+
+    private TextMeshPro exhibitNameTMP;
+    private TextMeshPro exhibitDescTMP;
+    private TextMeshPro exhibitNavToTMP;
 
     [SerializeField] private GameObject Bio_Pane;
     [SerializeField] private GameObject BIO_Content;
@@ -94,8 +106,7 @@ public class HUD : MonoBehaviour
         Bio,
         Exhibit
     }
-
-    private LRCursor _currentPane;
+    private LRCursor currentPane;
     
     // Start is called before the first frame update
     void Start()
@@ -121,6 +132,10 @@ public class HUD : MonoBehaviour
         exhibitPlus1TMP = exhibit_plus1_GO.GetComponent<TextMeshPro>();
         exhibitPlus2TMP = exhibit_plus2_GO.GetComponent<TextMeshPro>();
 
+        exhibitNameTMP = exhibit_Name_GO.GetComponent<TextMeshPro>();
+        exhibitDescTMP = exhibit_Desc_GO.GetComponent<TextMeshPro>();
+        exhibitNavToTMP = exhibit_NavTo_GO.GetComponent<TextMeshPro>();
+        
         briefTMPs = new List<TextMeshPro>
         {
             artistBrief1TMP,
@@ -129,22 +144,32 @@ public class HUD : MonoBehaviour
             artistBrief4TMP
         };
 
-        _currentPane = LRCursor.Artist;
+        currentPane = LRCursor.Artist;
 
         bioContentTMP = BIO_Content.GetComponent<TextMeshProUGUI>();
 
         displayPeriods = new List<string>();
         
         ParseExhibitDoc();
-
+        
+        DeActivateArtist();
+        DeActivateExhibitSelection();
+        DeActivateSelectedExhibit();
+        DeActivateBio();
+        
         ActivateHUD();
 
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown("t")) UpdatePeriod(1);
-        if (Input.GetKeyDown("g")) UpdatePeriod(-1);
+        if (Input.GetKeyDown("t")) SwipeUp();
+        if (Input.GetKeyDown("g")) SwipeDown();
+        
+        if (Input.GetKeyDown("j")) SwipeRight();
+        if (Input.GetKeyDown("h")) SwipeLeft();
+        
+        
     }
 
     public void UpdatePeriod(int dir)
@@ -255,13 +280,33 @@ public class HUD : MonoBehaviour
 
     private string NullExhibitCheck(Exhibit e)
     {
-        if (e == null) return "Bio";
+        if (e == null) return "Biography";
         return e.ExhibitName;
+    }
+    
+    public void ActivateHUD()
+    {
+        HUDGO.SetActive(true);
+        currentPane = LRCursor.Period;
+        selectedPeriodIndex = displayPeriods.Count / 2;
+        ActivatePeriod();
+    }
+    
+    public void DeActivateHUD()
+    {
+        HUDGO.SetActive(false);
+    }
+
+    private void ActivatePeriod()
+    {
+        period_GO.SetActive(true);
+        UpdatePeriod(0);
     }
 
     private void ActivateArtist()
     {
         artist_GO.SetActive(true);
+        artist_briefs_GO.SetActive(true);
         displayArtists = periodDict[displayPeriods[selectedPeriodIndex]].getArtists;
         selectedArtistIndex = displayArtists.Count / 2;
         UpdateArtist(0);
@@ -274,9 +319,11 @@ public class HUD : MonoBehaviour
     private void ActivateExhibitSelection()
     {
         exhibit_GO.SetActive(true);
+        displayExhibits = new List<Exhibit>();
         displayExhibits = displayArtists[selectedArtistIndex].Exhibits;
         displayExhibits.Insert(0,null);
         selectedExhibitIndex = displayExhibits.Count / 2;
+        UpdateExhibit(0);
     }
 
     private void DeActivateExhibitSelection()
@@ -284,58 +331,58 @@ public class HUD : MonoBehaviour
         exhibit_GO.SetActive(false);
     }
 
-    private void ActivateExhibitMenu()
+    private void ActivateSelectedExhibit()
     {
-        // functionality here
+        selected_exhibit_GO.SetActive(true);
+        exhibitNameTMP.text = displayExhibits[selectedExhibitIndex].ExhibitName;
+        exhibitDescTMP.text = displayExhibits[selectedExhibitIndex].ExhibitDesc;
+        exhibitNavToTMP.text = NavToString + displayExhibits[selectedExhibitIndex].ExhibitName;
+        
     }
 
-    public void DeActivateExhibitMenu()
+    public void DeActivateSelectedExhibit()
     {
-        // functionality here
-    }
-
-    private void ActivateExhibitOptions()
-    {
-        // functionality here
-    }
-
-    private void DeActivatedExhibitOptions()
-    {
-        // functionality here
+        selected_exhibit_GO.SetActive(false);
+        exhibitNavToTMP.text = NavToString;
     }
     
-    public void ActivateBio()
+    
+    private void ActivateBio()
     {
         Bio_Pane.SetActive(true);
         bioContentTMP.text = displayArtists[selectedArtistIndex].Bio;
     }
 
-    public void DeActivateBio()
+    private void DeActivateBio()
     {
         Bio_Pane.SetActive(false);
     }
 
     public void SwipeLeft()
     {
-        if (!HUDActive) return;
-        switch (_currentPane)
+        switch (currentPane)
         {
             case LRCursor.Period:
                 break;
             case LRCursor.Artist:
-                _currentPane = LRCursor.Period;
+                currentPane = LRCursor.Period;
+                DeActivateArtist();
+                ActivatePeriod();
                 break;
             case LRCursor.ExhibitSelection:
                 DeActivateExhibitSelection();
-                _currentPane = LRCursor.Artist;
+                currentPane = LRCursor.Artist;
+                ActivateArtist();
                 break;
             case LRCursor.Bio:
+                ActivateExhibitSelection();
                 DeActivateBio();
-                _currentPane = LRCursor.ExhibitSelection;
+                currentPane = LRCursor.ExhibitSelection;
                 break;
             case LRCursor.Exhibit:
-                DeActivatedExhibitOptions();
-                _currentPane = LRCursor.ExhibitSelection;
+                ActivateExhibitSelection();
+                DeActivateSelectedExhibit();
+                currentPane = LRCursor.ExhibitSelection;
                 break;
             default:
                 break;
@@ -344,15 +391,17 @@ public class HUD : MonoBehaviour
 
     public void SwipeRight()
     {
-        if (!HUDActive) return;
-        switch (_currentPane)
+        switch (currentPane)
         {
             case LRCursor.Period:
                 periodNeg2TMP.text = periodNeg1TMP.text = periodPlus1TMP.text = periodPlus2TMP.text = "";
-                _currentPane = LRCursor.Artist;
+                currentPane = LRCursor.Artist;
+                ActivateArtist();
                 break;
             case LRCursor.Artist:
-                _currentPane = LRCursor.ExhibitSelection;
+                artistNeg2TMP.text = artistNeg1TMP.text = artistPlus1TMP.text = "";
+                currentPane = LRCursor.ExhibitSelection;
+                artist_briefs_GO.SetActive(false);
                 ActivateExhibitSelection();
                 break;
             case LRCursor.ExhibitSelection:
@@ -361,8 +410,68 @@ public class HUD : MonoBehaviour
                 //  ActivateBio();
                 // exhibit => leftCurrentPane = leftLRCursor.Exhibit;
                 //  ActivateExhibitOptions();
+                if (NullExhibitCheck(displayExhibits[selectedExhibitIndex]).Equals("Biography"))
+                {
+                    currentPane = LRCursor.Bio;
+                    ActivateBio();
+                }
+                else
+                {
+                    currentPane = LRCursor.Exhibit;
+                    ActivateSelectedExhibit();
+                }
+                DeActivateExhibitSelection();
+                
                 break;
             case LRCursor.Bio:
+                break;
+            case LRCursor.Exhibit:
+                //Navigate to selected Node
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SwipeUp()
+    {
+        switch (currentPane)
+        {
+            case LRCursor.Period:
+                UpdatePeriod(1);
+                break;
+            case LRCursor.Artist:
+                UpdateArtist(1);
+                break;
+            case LRCursor.ExhibitSelection:
+                UpdateExhibit(1);
+                break;
+            case LRCursor.Bio:
+                // need to add scroll for bio pane
+                break;
+            case LRCursor.Exhibit:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void SwipeDown()
+    {
+        switch (currentPane)
+        {
+            case LRCursor.Period:
+                UpdatePeriod(-1);
+                break;
+            case LRCursor.Artist:
+                UpdateArtist(-1);
+                break;
+            case LRCursor.ExhibitSelection:
+                UpdateExhibit(-1);
+                break;
+            case LRCursor.Bio:
+                // need to add scroll for bio pane
+                break;
             case LRCursor.Exhibit:
                 break;
             default:
@@ -372,18 +481,7 @@ public class HUD : MonoBehaviour
 
     
 
-    public void ActivateHUD()
-    {
-        HUDGO.SetActive(true);
-        DeActivateBio();
-        selectedPeriodIndex = displayPeriods.Count / 2;
-        UpdatePeriod(0);
-    }
     
-    public void DeActivateHUD()
-    {
-        HUDGO.SetActive(false);
-    }
 
     private void ParseExhibitDoc()
     {
