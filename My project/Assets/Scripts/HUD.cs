@@ -18,35 +18,35 @@ public class HUD : MonoBehaviour
     
     private List<string> rightSideData;
 
-    [SerializeField] private GameObject right_neg2_GO;
-    [SerializeField] private GameObject right_neg1_GO;
-    [SerializeField] private GameObject right_selected_GO;
-    [SerializeField] private GameObject right_plus1_GO;
-    [SerializeField] private GameObject right_plus2_GO;
+    [SerializeField] private GameObject period_neg2_GO;
+    [SerializeField] private GameObject period_neg1_GO;
+    [SerializeField] private GameObject period_selected_GO;
+    [SerializeField] private GameObject period_plus1_GO;
+    [SerializeField] private GameObject period_plus2_GO;
     
-    private TextMeshPro rightNeg2TMP;
-    private TextMeshPro rightNeg1TMP;
-    private TextMeshPro rightSelectedTMP;
-    private TextMeshPro rightPlus1TMP;
-    private TextMeshPro rightPlus2TMP;
+    private TextMeshPro periodNeg2TMP;
+    private TextMeshPro periodNeg1TMP;
+    private TextMeshPro periodSelectedTMP;
+    private TextMeshPro periodPlus1TMP;
+    private TextMeshPro periodPlus2TMP;
     
-    [SerializeField] private GameObject left_neg2_GO;
-    [SerializeField] private GameObject left_neg1_GO;
-    [SerializeField] private GameObject left_selected_GO;
-    [SerializeField] private GameObject left_plus1_GO;
-    [SerializeField] private GameObject left_brief1_GO;
-    [SerializeField] private GameObject left_brief2_GO;
-    [SerializeField] private GameObject left_brief3_GO;
-    [SerializeField] private GameObject left_brief4_GO;
+    [FormerlySerializedAs("left_neg2_GO")] [SerializeField] private GameObject artist_neg2_GO;
+    [FormerlySerializedAs("left_neg1_GO")] [SerializeField] private GameObject artist_neg1_GO;
+    [FormerlySerializedAs("left_selected_GO")] [SerializeField] private GameObject artist_selected_GO;
+    [FormerlySerializedAs("left_plus1_GO")] [SerializeField] private GameObject artist_plus1_GO;
+    [FormerlySerializedAs("left_brief1_GO")] [SerializeField] private GameObject artist_brief1_GO;
+    [FormerlySerializedAs("left_brief2_GO")] [SerializeField] private GameObject artist_brief2_GO;
+    [FormerlySerializedAs("left_brief3_GO")] [SerializeField] private GameObject artist_brief3_GO;
+    [FormerlySerializedAs("left_brief4_GO")] [SerializeField] private GameObject artist_brief4_GO;
     
-    private TextMeshPro leftNeg2TMP;
-    private TextMeshPro leftNeg1TMP;
-    private TextMeshPro leftSelectedTMP;
-    private TextMeshPro leftPlus1TMP;
-    private TextMeshPro leftBrief1TMP;
-    private TextMeshPro leftBrief2TMP;
-    private TextMeshPro leftBrief3TMP;
-    private TextMeshPro leftBrief4TMP;
+    private TextMeshPro artistNeg2TMP;
+    private TextMeshPro artistNeg1TMP;
+    private TextMeshPro artistSelectedTMP;
+    private TextMeshPro artistPlus1TMP;
+    private TextMeshPro artistBrief1TMP;
+    private TextMeshPro artistBrief2TMP;
+    private TextMeshPro artistBrief3TMP;
+    private TextMeshPro artistBrief4TMP;
     private List<TextMeshPro> briefTMPs;
     
     [SerializeField] private GameObject exhibit_neg2_GO;
@@ -96,20 +96,20 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rightNeg2TMP = right_neg2_GO.GetComponent<TextMeshPro>();
-        rightNeg1TMP = right_neg1_GO.GetComponent<TextMeshPro>();
-        rightSelectedTMP = right_selected_GO.GetComponent<TextMeshPro>();
-        rightPlus1TMP = right_plus1_GO.GetComponent<TextMeshPro>();
-        rightPlus2TMP = right_plus2_GO.GetComponent<TextMeshPro>();
+        periodNeg2TMP = period_neg2_GO.GetComponent<TextMeshPro>();
+        periodNeg1TMP = period_neg1_GO.GetComponent<TextMeshPro>();
+        periodSelectedTMP = period_selected_GO.GetComponent<TextMeshPro>();
+        periodPlus1TMP = period_plus1_GO.GetComponent<TextMeshPro>();
+        periodPlus2TMP = period_plus2_GO.GetComponent<TextMeshPro>();
         
-        leftNeg2TMP = left_neg2_GO.GetComponent<TextMeshPro>();
-        leftNeg1TMP = left_neg1_GO.GetComponent<TextMeshPro>();
-        leftSelectedTMP = left_selected_GO.GetComponent<TextMeshPro>();
-        leftPlus1TMP = left_plus1_GO.GetComponent<TextMeshPro>();
-        leftBrief1TMP = left_brief1_GO.GetComponent<TextMeshPro>();
-        leftBrief2TMP = left_brief2_GO.GetComponent<TextMeshPro>();
-        leftBrief3TMP = left_brief3_GO.GetComponent<TextMeshPro>();
-        leftBrief4TMP = left_brief4_GO.GetComponent<TextMeshPro>();
+        artistNeg2TMP = artist_neg2_GO.GetComponent<TextMeshPro>();
+        artistNeg1TMP = artist_neg1_GO.GetComponent<TextMeshPro>();
+        artistSelectedTMP = artist_selected_GO.GetComponent<TextMeshPro>();
+        artistPlus1TMP = artist_plus1_GO.GetComponent<TextMeshPro>();
+        artistBrief1TMP = artist_brief1_GO.GetComponent<TextMeshPro>();
+        artistBrief2TMP = artist_brief2_GO.GetComponent<TextMeshPro>();
+        artistBrief3TMP = artist_brief3_GO.GetComponent<TextMeshPro>();
+        artistBrief4TMP = artist_brief4_GO.GetComponent<TextMeshPro>();
         
         exhibitNeg2TMP = exhibit_neg2_GO.GetComponent<TextMeshPro>();
         exhibitNeg1TMP = exhibit_neg1_GO.GetComponent<TextMeshPro>();
@@ -119,10 +119,10 @@ public class HUD : MonoBehaviour
 
         briefTMPs = new List<TextMeshPro>
         {
-            leftBrief1TMP,
-            leftBrief2TMP,
-            leftBrief3TMP,
-            leftBrief4TMP
+            artistBrief1TMP,
+            artistBrief2TMP,
+            artistBrief3TMP,
+            artistBrief4TMP
         };
 
         leftCurrentPane = leftLRCursor.Artist;
@@ -151,26 +151,26 @@ public class HUD : MonoBehaviour
         if (selectedPeriodIndex < 0) 
             selectedPeriodIndex = 0;
 
-        rightSelectedTMP.text = displayPeriods[selectedPeriodIndex];
+        periodSelectedTMP.text = displayPeriods[selectedPeriodIndex];
         if (selectedPeriodIndex >= 1)
-            rightNeg1TMP.text = displayPeriods[selectedPeriodIndex - 1];
+            periodNeg1TMP.text = displayPeriods[selectedPeriodIndex - 1];
         else
-            rightNeg1TMP.text = "";
+            periodNeg1TMP.text = "";
                 
         if (selectedPeriodIndex >= 2)
-            rightNeg2TMP.text = displayPeriods[selectedPeriodIndex - 2];
+            periodNeg2TMP.text = displayPeriods[selectedPeriodIndex - 2];
         else
-            rightNeg2TMP.text = "";
+            periodNeg2TMP.text = "";
         
         if (selectedPeriodIndex <= (displayPeriods.Count - 2))
-            rightPlus1TMP.text = displayPeriods[selectedPeriodIndex + 1];
+            periodPlus1TMP.text = displayPeriods[selectedPeriodIndex + 1];
         else
-            rightPlus1TMP.text = "";
+            periodPlus1TMP.text = "";
         
         if (selectedPeriodIndex <= (displayPeriods.Count - 3))
-            rightPlus2TMP.text = displayPeriods[selectedPeriodIndex + 2];
+            periodPlus2TMP.text = displayPeriods[selectedPeriodIndex + 2];
         else
-            rightPlus2TMP.text = "";
+            periodPlus2TMP.text = "";
 
         displayArtists = periodDict[displayPeriods[selectedPeriodIndex]].getArtists;
         selectedArtistIndex = displayArtists.Count / 2;
@@ -186,7 +186,7 @@ public class HUD : MonoBehaviour
         if (selectedArtistIndex < 0) 
             selectedArtistIndex = 0;
 
-        leftSelectedTMP.text = displayArtists[selectedArtistIndex].ArtistName;
+        artistSelectedTMP.text = displayArtists[selectedArtistIndex].ArtistName;
         int i = 0;
         while (i < briefTMPs.Count && i < displayArtists[selectedArtistIndex].Brief.Count)
         {
@@ -204,19 +204,19 @@ public class HUD : MonoBehaviour
         selectedExhibitIndex = displayExhibits.Count / 2;
 
         if (selectedArtistIndex >= 1)
-            leftNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
+            artistNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
         else
-            leftNeg1TMP.text = "";
+            artistNeg1TMP.text = "";
                 
         if (selectedArtistIndex >= 2)
-            leftNeg2TMP.text = displayArtists[selectedArtistIndex - 2].ArtistName;
+            artistNeg2TMP.text = displayArtists[selectedArtistIndex - 2].ArtistName;
         else
-            leftNeg2TMP.text = "";
+            artistNeg2TMP.text = "";
         
         if (selectedArtistIndex + 1 < displayArtists.Count)
-            leftPlus1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
+            artistPlus1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
         else
-            leftPlus1TMP.text = "";
+            artistPlus1TMP.text = "";
         
         // if (selectedArtistIndex + 2 < displayArtists.Count )
         //     leftBrief2TMP.text = displayArtists[selectedArtistIndex + 2].ArtistName;
