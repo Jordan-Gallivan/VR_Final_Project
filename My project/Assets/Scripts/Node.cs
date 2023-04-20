@@ -48,7 +48,7 @@ public class Node : MonoBehaviour, IComparable
     /// </summary>
     public void MakeNodeClear()
     {
-        nodeRenderer.material.SetColor(Color1, clear);
+        nodeRenderer.enabled = false;
     }
     
     /// <summary>

@@ -9,28 +9,31 @@ using UnityEngine.Serialization;
 
 public class HUD : MonoBehaviour
 {
-    
-    /* To Do
-     o period selected, then show artist
-     */
-    
+    // Initialize HUD GameObject
     [SerializeField] private GameObject HUDGO;
     
-    private List<string> rightSideData;
-
+    // Initialize player GO and Object
+    [SerializeField] private GameObject player;
+    private PlayerScript Player;
+    
+    // Initialize Graph GO and Object
+    [SerializeField] private GameObject graphGO;
+    private Graph graphScript;
+    
+    // Initialize Period Menu Game Objects and TMPs
     [SerializeField] private GameObject period_GO;
     [SerializeField] private GameObject period_neg2_GO;
     [SerializeField] private GameObject period_neg1_GO;
     [SerializeField] private GameObject period_selected_GO;
     [SerializeField] private GameObject period_plus1_GO;
     [SerializeField] private GameObject period_plus2_GO;
-    
     private TextMeshPro periodNeg2TMP;
     private TextMeshPro periodNeg1TMP;
     private TextMeshPro periodSelectedTMP;
     private TextMeshPro periodPlus1TMP;
     private TextMeshPro periodPlus2TMP;
 
+    // Initialize Artist Menu Game Objects and TMPs
     [SerializeField] private GameObject artist_GO;
     [SerializeField] private GameObject artist_neg2_GO;
     [SerializeField] private GameObject artist_neg1_GO;
@@ -41,7 +44,6 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject artist_brief2_GO;
     [SerializeField] private GameObject artist_brief3_GO;
     [SerializeField] private GameObject artist_brief4_GO;
-    
     private TextMeshPro artistNeg2TMP;
     private TextMeshPro artistNeg1TMP;
     private TextMeshPro artistSelectedTMP;
@@ -51,39 +53,39 @@ public class HUD : MonoBehaviour
     private TextMeshPro artistBrief3TMP;
     private TextMeshPro artistBrief4TMP;
     private List<TextMeshPro> briefTMPs;
-
+    
+    // Initialize Exhibit Menu Game Objects and TMPs
     [SerializeField] private GameObject exhibit_GO;
     [SerializeField] private GameObject exhibit_neg2_GO;
     [SerializeField] private GameObject exhibit_neg1_GO;
     [SerializeField] private GameObject exhibit_selected_GO;
     [SerializeField] private GameObject exhibit_plus1_GO;
     [SerializeField] private GameObject exhibit_plus2_GO;
-    
     private TextMeshPro exhibitNeg2TMP;
     private TextMeshPro exhibitNeg1TMP;
     private TextMeshPro exhibitSelectedTMP;
     private TextMeshPro exhibitPlus1TMP;
     private TextMeshPro exhibitPlus2TMP;
 
+    // Selected Exhibit Game Objects and TMPs
     [SerializeField] private GameObject selected_exhibit_GO;    
     [SerializeField] private GameObject exhibit_Name_GO;
     [SerializeField] private GameObject exhibit_Desc_GO;
     [SerializeField] private GameObject exhibit_NavTo_GO;
     private string NavToString = "Swipe Right to Navigate to ";
-
-
     private TextMeshPro exhibitNameTMP;
     private TextMeshPro exhibitDescTMP;
     private TextMeshPro exhibitNavToTMP;
 
+    // Initialize Biography Game Objects and TMPs
     [SerializeField] private GameObject Bio_Pane;
     [SerializeField] private GameObject BIO_Content;
     private TextMeshProUGUI bioContentTMP;
 
-    [SerializeField] private GameObject exhibitGO;
+    // Initialize Empty Game Object in which Exhibit Game Objects are nested
+    [SerializeField] private GameObject exhibitCollectionGO;
 
-    
-
+    // Initialize Lists to display Periods, Artists, and Exhibits
     private List<string> displayPeriods;
     private List<Artist> displayArtists;
     private List<Exhibit> displayExhibits;
@@ -91,13 +93,19 @@ public class HUD : MonoBehaviour
     private int selectedArtistIndex;
     private int selectedExhibitIndex;
 
+    // Initialize Dictionaries used to parse Artist Document
     private Dictionary<string, Period> periodDict;
     private Dictionary<string, Artist> artistDict;
     
-    // Booleans for HUD Display
+    // Boolean for HUD Display
     private bool HUDActive;
+    
+    // Navigation Variables
+    private bool navigatingToExhibit = false;
+    private Node destExhibitNode;
+    
 
-
+    // Enumerator for Selected Menu
     private enum LRCursor
     {
         Period,
@@ -111,6 +119,13 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Initialize Player Script
+        Player = player.GetComponent<PlayerScript>();
+        
+        // Initialize Graph Script
+        graphScript = graphGO.GetComponent<Graph>();
+        
+        // Pull TMPs from Game Objects
         periodNeg2TMP = period_neg2_GO.GetComponent<TextMeshPro>();
         periodNeg1TMP = period_neg1_GO.GetComponent<TextMeshPro>();
         periodSelectedTMP = period_selected_GO.GetComponent<TextMeshPro>();
@@ -136,6 +151,8 @@ public class HUD : MonoBehaviour
         exhibitDescTMP = exhibit_Desc_GO.GetComponent<TextMeshPro>();
         exhibitNavToTMP = exhibit_NavTo_GO.GetComponent<TextMeshPro>();
         
+        bioContentTMP = BIO_Content.GetComponent<TextMeshProUGUI>();
+        
         briefTMPs = new List<TextMeshPro>
         {
             artistBrief1TMP,
@@ -144,19 +161,18 @@ public class HUD : MonoBehaviour
             artistBrief4TMP
         };
 
-        currentPane = LRCursor.Artist;
-
-        bioContentTMP = BIO_Content.GetComponent<TextMeshProUGUI>();
-
-        displayPeriods = new List<string>();
+        displayPeriods = new List<string>();    // Initialize displayPeriods
+        ParseExhibitDoc();  // Read in Artist Document
         
-        ParseExhibitDoc();
-        
+        // Deactivate all Menus
         DeActivateArtist();
         DeActivateExhibitSelection();
         DeActivateSelectedExhibit();
         DeActivateBio();
+
+        destExhibitNode = null;
         
+        // Deactivate HUD After testing
         ActivateHUD();
 
     }
@@ -168,120 +184,11 @@ public class HUD : MonoBehaviour
         
         if (Input.GetKeyDown("j")) SwipeRight();
         if (Input.GetKeyDown("h")) SwipeLeft();
-        
-        
-    }
 
-    public void UpdatePeriod(int dir)
-    {
-        selectedPeriodIndex += -dir;
-        if (selectedPeriodIndex >= displayPeriods.Count) 
-            selectedPeriodIndex = displayPeriods.Count - 1;
-        if (selectedPeriodIndex < 0) 
-            selectedPeriodIndex = 0;
-
-        periodSelectedTMP.text = displayPeriods[selectedPeriodIndex];
-        if (selectedPeriodIndex >= 1)
-            periodNeg1TMP.text = displayPeriods[selectedPeriodIndex - 1];
-        else
-            periodNeg1TMP.text = "";
-                
-        if (selectedPeriodIndex >= 2)
-            periodNeg2TMP.text = displayPeriods[selectedPeriodIndex - 2];
-        else
-            periodNeg2TMP.text = "";
-        
-        if (selectedPeriodIndex <= (displayPeriods.Count - 2))
-            periodPlus1TMP.text = displayPeriods[selectedPeriodIndex + 1];
-        else
-            periodPlus1TMP.text = "";
-        
-        if (selectedPeriodIndex <= (displayPeriods.Count - 3))
-            periodPlus2TMP.text = displayPeriods[selectedPeriodIndex + 2];
-        else
-            periodPlus2TMP.text = "";
-        
-    }
-
-    public void UpdateArtist(int dir)
-    {
-        selectedArtistIndex += -dir;
-        if (selectedArtistIndex >= displayArtists.Count) 
-            selectedArtistIndex = displayArtists.Count - 1;
-        if (selectedArtistIndex < 0) 
-            selectedArtistIndex = 0;
-
-        artistSelectedTMP.text = displayArtists[selectedArtistIndex].ArtistName;
-        int i = 0;
-        while (i < briefTMPs.Count && i < displayArtists[selectedArtistIndex].Brief.Count)
+        if (navigatingToExhibit)
         {
-            briefTMPs[i].text = "-" + displayArtists[selectedArtistIndex].Brief[i];
-            i++;
+            graphScript.DisplayPath(Player.NearestNode, destExhibitNode);
         }
-        while (i < briefTMPs.Count)
-        {
-            briefTMPs[i].text = "";
-            i++;
-        }
-        
-
-        if (selectedArtistIndex >= 1)
-            artistNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
-        else
-            artistNeg1TMP.text = "";
-                
-        if (selectedArtistIndex >= 2)
-            artistNeg2TMP.text = displayArtists[selectedArtistIndex - 2].ArtistName;
-        else
-            artistNeg2TMP.text = "";
-        
-        if (selectedArtistIndex + 1 < displayArtists.Count)
-            artistPlus1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
-        else
-            artistPlus1TMP.text = "";
-        
-        // if (selectedArtistIndex + 2 < displayArtists.Count )
-        //     leftBrief2TMP.text = displayArtists[selectedArtistIndex + 2].ArtistName;
-        // else
-        //     leftBrief2TMP.text = "";
-    }
-
-    private void UpdateExhibit(int dir)
-    {
-        // conditional to check null = bio
-        selectedExhibitIndex += -dir;
-        if (selectedExhibitIndex >= displayExhibits.Count) 
-            selectedExhibitIndex = displayExhibits.Count - 1;
-        if (selectedExhibitIndex < 0) 
-            selectedExhibitIndex = 0;
-
-        exhibitSelectedTMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex]);
-        if (selectedExhibitIndex >= 1)
-            exhibitNeg1TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex - 1]);
-        else
-            exhibitNeg1TMP.text = "";
-                
-        if (selectedExhibitIndex >= 2)
-            exhibitNeg2TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex - 2]);
-        else
-            exhibitNeg2TMP.text = "";
-        
-        if (selectedExhibitIndex <= (displayExhibits.Count - 2))
-            exhibitPlus1TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex + 1]);
-        else
-            exhibitPlus1TMP.text = "";
-        
-        if (selectedExhibitIndex <= (displayExhibits.Count - 3))
-            exhibitPlus2TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex + 2]);
-        else
-            exhibitPlus2TMP.text = "";
-        
-    }
-
-    private string NullExhibitCheck(Exhibit e)
-    {
-        if (e == null) return "Biography";
-        return e.ExhibitName;
     }
     
     public void ActivateHUD()
@@ -303,12 +210,12 @@ public class HUD : MonoBehaviour
         UpdatePeriod(0);
     }
 
-    private void ActivateArtist()
+    private void ActivateArtist(bool leftSwipe)
     {
         artist_GO.SetActive(true);
         artist_briefs_GO.SetActive(true);
         displayArtists = periodDict[displayPeriods[selectedPeriodIndex]].getArtists;
-        selectedArtistIndex = displayArtists.Count / 2;
+        selectedArtistIndex =  !leftSwipe ? displayArtists.Count / 2 : selectedArtistIndex;
         UpdateArtist(0);
     }
 
@@ -316,13 +223,12 @@ public class HUD : MonoBehaviour
     {
         artist_GO.SetActive(false);
     }
-    private void ActivateExhibitSelection()
+    private void ActivateExhibitSelection(bool leftSwipe)
     {
         exhibit_GO.SetActive(true);
-        displayExhibits = new List<Exhibit>();
-        displayExhibits = displayArtists[selectedArtistIndex].Exhibits;
+        displayExhibits = new List<Exhibit>(displayArtists[selectedArtistIndex].Exhibits);
         displayExhibits.Insert(0,null);
-        selectedExhibitIndex = displayExhibits.Count / 2;
+        selectedExhibitIndex = !leftSwipe ? displayExhibits.Count / 2 : selectedExhibitIndex;
         UpdateExhibit(0);
     }
 
@@ -357,6 +263,143 @@ public class HUD : MonoBehaviour
     {
         Bio_Pane.SetActive(false);
     }
+    
+    /// <summary>
+    /// Updates the Period Menu in direction, dir
+    /// </summary>
+    /// <param name="dir">Integer direction to increment or decrement Period Menu</param>
+    public void UpdatePeriod(int dir)
+    {
+        // Ensure index is not outside of the List
+        selectedPeriodIndex += -dir;
+        if (selectedPeriodIndex >= displayPeriods.Count) 
+            selectedPeriodIndex = displayPeriods.Count - 1;
+        if (selectedPeriodIndex < 0) 
+            selectedPeriodIndex = 0;
+        
+        // Set selected period in the middle of the menu
+        periodSelectedTMP.text = displayPeriods[selectedPeriodIndex];
+        
+        // Set +/- Menu choices based on size of List
+        if (selectedPeriodIndex >= 1)
+            periodNeg1TMP.text = displayPeriods[selectedPeriodIndex - 1];
+        else
+            periodNeg1TMP.text = "";
+                
+        if (selectedPeriodIndex >= 2)
+            periodNeg2TMP.text = displayPeriods[selectedPeriodIndex - 2];
+        else
+            periodNeg2TMP.text = "";
+        
+        if (selectedPeriodIndex <= (displayPeriods.Count - 2))
+            periodPlus1TMP.text = displayPeriods[selectedPeriodIndex + 1];
+        else
+            periodPlus1TMP.text = "";
+        
+        if (selectedPeriodIndex <= (displayPeriods.Count - 3))
+            periodPlus2TMP.text = displayPeriods[selectedPeriodIndex + 2];
+        else
+            periodPlus2TMP.text = "";
+        
+    }
+    /// <summary>
+    /// Updates the Artist Menu in direction, dir
+    /// </summary>
+    /// <param name="dir">Integer direction to increment or decrement Period Menu</param>
+    public void UpdateArtist(int dir)
+    {
+        // Ensure index is not outside of the List
+        selectedArtistIndex += -dir;
+        if (selectedArtistIndex >= displayArtists.Count) 
+            selectedArtistIndex = displayArtists.Count - 1;
+        if (selectedArtistIndex < 0) 
+            selectedArtistIndex = 0;
+
+        // Set selected artist in the middle of the menu
+        artistSelectedTMP.text = displayArtists[selectedArtistIndex].ArtistName;
+        
+        // Build brief points and display
+        int i = 0;
+        while (i < briefTMPs.Count && i < displayArtists[selectedArtistIndex].Brief.Count)
+        {
+            briefTMPs[i].text = "-" + displayArtists[selectedArtistIndex].Brief[i];
+            i++;
+        }
+        while (i < briefTMPs.Count)
+        {
+            briefTMPs[i].text = "";
+            i++;
+        }
+        
+        // Set +/- Menu choices based on size of List
+        if (selectedArtistIndex >= 1)
+            artistNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
+        else
+            artistNeg1TMP.text = "";
+                
+        if (selectedArtistIndex >= 2)
+            artistNeg2TMP.text = displayArtists[selectedArtistIndex - 2].ArtistName;
+        else
+            artistNeg2TMP.text = "";
+        
+        if (selectedArtistIndex + 1 < displayArtists.Count)
+            artistPlus1TMP.text = displayArtists[selectedArtistIndex + 1].ArtistName;
+        else
+            artistPlus1TMP.text = "";
+
+    }
+
+    /// <summary>
+    /// Updates the Exhibit Menu in direction, dir
+    /// </summary>
+    /// <param name="dir">Integer direction to increment or decrement Period Menu</param>
+    private void UpdateExhibit(int dir)
+    {
+        // Ensure index is not outside of the List
+        selectedExhibitIndex += -dir;
+        if (selectedExhibitIndex >= displayExhibits.Count) 
+            selectedExhibitIndex = displayExhibits.Count - 1;
+        if (selectedExhibitIndex < 0) 
+            selectedExhibitIndex = 0;
+
+        // NullExhibitCheck is called for every menu assignment to determine if index is 
+        //  on the biography
+        // Set selected exhibit in the middle of the menu
+        exhibitSelectedTMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex]);
+        
+        // Set +/- Menu choices based on size of List
+        if (selectedExhibitIndex >= 1)
+            exhibitNeg1TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex - 1]);
+        else
+            exhibitNeg1TMP.text = "";
+                
+        if (selectedExhibitIndex >= 2)
+            exhibitNeg2TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex - 2]);
+        else
+            exhibitNeg2TMP.text = "";
+        
+        if (selectedExhibitIndex <= (displayExhibits.Count - 2))
+            exhibitPlus1TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex + 1]);
+        else
+            exhibitPlus1TMP.text = "";
+        
+        if (selectedExhibitIndex <= (displayExhibits.Count - 3))
+            exhibitPlus2TMP.text = NullExhibitCheck(displayExhibits[selectedExhibitIndex + 2]);
+        else
+            exhibitPlus2TMP.text = "";
+        
+    }
+    
+    /// <summary>
+    /// Determines if selected Exhibit, e is null
+    /// </summary>
+    /// <param name="e">Exhibit to be checked for null value</param>
+    /// <returns>"Biography" if the exhibit is null, else the name of the exhibit</returns>
+    private string NullExhibitCheck(Exhibit e)
+    {
+        if (e == null) return "Biography";
+        return e.ExhibitName;
+    }
 
     public void SwipeLeft()
     {
@@ -372,15 +415,15 @@ public class HUD : MonoBehaviour
             case LRCursor.ExhibitSelection:
                 DeActivateExhibitSelection();
                 currentPane = LRCursor.Artist;
-                ActivateArtist();
+                ActivateArtist(true);
                 break;
             case LRCursor.Bio:
-                ActivateExhibitSelection();
+                ActivateExhibitSelection(true);
                 DeActivateBio();
                 currentPane = LRCursor.ExhibitSelection;
                 break;
             case LRCursor.Exhibit:
-                ActivateExhibitSelection();
+                ActivateExhibitSelection(true);
                 DeActivateSelectedExhibit();
                 currentPane = LRCursor.ExhibitSelection;
                 break;
@@ -396,20 +439,15 @@ public class HUD : MonoBehaviour
             case LRCursor.Period:
                 periodNeg2TMP.text = periodNeg1TMP.text = periodPlus1TMP.text = periodPlus2TMP.text = "";
                 currentPane = LRCursor.Artist;
-                ActivateArtist();
+                ActivateArtist(false);
                 break;
             case LRCursor.Artist:
                 artistNeg2TMP.text = artistNeg1TMP.text = artistPlus1TMP.text = "";
                 currentPane = LRCursor.ExhibitSelection;
                 artist_briefs_GO.SetActive(false);
-                ActivateExhibitSelection();
+                ActivateExhibitSelection(false);
                 break;
             case LRCursor.ExhibitSelection:
-                //conditional to check if bio selected or exhibit selected
-                // bio => leftCurrentPane = leftLRCursor.Bio;
-                //  ActivateBio();
-                // exhibit => leftCurrentPane = leftLRCursor.Exhibit;
-                //  ActivateExhibitOptions();
                 if (NullExhibitCheck(displayExhibits[selectedExhibitIndex]).Equals("Biography"))
                 {
                     currentPane = LRCursor.Bio;
@@ -426,7 +464,7 @@ public class HUD : MonoBehaviour
             case LRCursor.Bio:
                 break;
             case LRCursor.Exhibit:
-                //Navigate to selected Node
+                NavigateToExhibit(displayExhibits[selectedExhibitIndex]);
                 break;
             default:
                 break;
@@ -479,25 +517,42 @@ public class HUD : MonoBehaviour
         }
     }
 
+    private void NavigateToExhibit(Exhibit destNode)
+    {
+        navigatingToExhibit = true;
+        destExhibitNode = destNode.NearestNode;
+    }
+
+    private void EndNavigation()
+    {
+        navigatingToExhibit = false;
+    }
     
 
     
-
+    /// <summary>
+    /// Reads in Artist file and assigns artist data (brief and biography) to each artist.
+    /// Artists are then added to their respective period.
+    /// </summary>
     private void ParseExhibitDoc()
     {
-        periodDict = new Dictionary<string, Period>();
+        periodDict = new Dictionary<string, Period>();  // Initialize Dictionary to store Periods
         
-        artistDict = new Dictionary<string, Artist>();
-        foreach (Transform a in exhibitGO.transform)
+        artistDict = new Dictionary<string, Artist>();  // Initialize Dictionary to store Artists
+        // Iterate through exhibit collection and add Artist objects to artistDict
+        foreach (Transform a in exhibitCollectionGO.transform)
         {
             artistDict.Add(a.GameObject().name, a.GameObject().GetComponent<Artist>());
         }
         
+        // Initialize queues for parsing document
         Queue<Period> periodQ = new Queue<Period>();    // stack index 0
         // time                                         // stack index 1
         Queue<Artist> artistQ = new Queue<Artist>();    // stack index 2
         Queue<string> briefQ = new Queue<string>();     // stack index 3
         Queue<string> bioQ = new Queue<string>();       // stack index 4
+        
+        // Initialize indices 
         Artist currArtist = null;
         int stackIndex = -1;
         
@@ -593,13 +648,9 @@ public class HUD : MonoBehaviour
         {
             displayPeriods.Add(p.Key);
         }
+        // sort Periods, then remove "Pre-War" from end and place at front
         displayPeriods.Sort();
         displayPeriods.Insert(0,displayPeriods[^1]);
         displayPeriods.RemoveAt(displayPeriods.Count - 1);
-    }
-
-    // public string GetSelectedPeriod()
-    // {
-    //     // return displayPeriods[selectedPeriodIndex];
-    // }
+    }   // end of ParseExhibitDoc()
 }

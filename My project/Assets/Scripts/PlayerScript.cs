@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-
-    public Rigidbody rb;
-
-    public GameObject player;
-    public float playerHeight = 1.5f;
-
-    public float velocityConstant = 2.0f;
-    public float rotationConstant = 1f;
+    // Player Objects
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private GameObject player;
+    
+    // Player settings
+    [SerializeField] private float playerHeight = 1.5f;
+    [SerializeField] private float velocityConstant = 2.0f;
+    [SerializeField] private float rotationConstant = 1f;
+    
+    // Nearest Node
+    private Node nearestNode;
+    private GameObject nearestNodeGO;
+    public Node NearestNode => nearestNode;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +29,24 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         rayDown();
+
+        RaycastHit[] nodes = Physics.SphereCastAll(
+            new Vector3(player.transform.position.x, 
+                player.transform.position.y + 20f, player.transform.position.z),
+            10.0f, new Vector3(0f, -1f, 0f));
+        float nearestDistance = Mathf.Infinity;
+        nearestNodeGO = null;
+        foreach (RaycastHit hit in nodes)
+        {
+            if ((hit.distance < nearestDistance) && (hit.collider.gameObject != nearestNodeGO) &&
+                hit.transform.gameObject.layer == LayerMask.NameToLayer("Node"))
+            {
+                nearestDistance = hit.distance;
+                nearestNodeGO = hit.transform.gameObject;
+            }
+        }
+
+        if (nearestNodeGO != null) nearestNode = nearestNodeGO.GetComponent<Node>();
     }
 
 
