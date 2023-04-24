@@ -16,6 +16,7 @@ public class Graph : MonoBehaviour
     [SerializeField] private GameObject edgeEmpty;
     [SerializeField] private GameObject edgeEmptyClone;
     [SerializeField] private GameObject visualPathGO;
+    [SerializeField] private GameObject materialHolder;
 
     [SerializeField] private float buildTimeDelay;
     
@@ -45,6 +46,19 @@ public class Graph : MonoBehaviour
         // DJTest();
 
         visualPath = visualPathGO.AddComponent<LineRenderer>();
+        visualPath.material = materialHolder.GetComponent<MeshRenderer>().material;
+        Color startRed = new Color(214f, 84f, 84f);
+        Color middleYellow = new Color(179, 214, 84);
+        Color endGreen = new Color(91, 214, 84);
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] {new GradientColorKey(startRed, 0f),
+                new GradientColorKey(middleYellow, 0.5f), new GradientColorKey(endGreen, 1.0f)},
+            new GradientAlphaKey[] {new GradientAlphaKey(1.0f, 0.33f), 
+                new GradientAlphaKey(1.0f, 0.66f)}
+            );
+        visualPath.colorGradient = gradient;
+        visualPath.numCornerVertices = 4;
     }
     
     /// <summary>
@@ -153,17 +167,24 @@ public class Graph : MonoBehaviour
     {
         List<Edge> path = shortestPaths[start][dest].Path;
         // visualPath = new LineRenderer();
-        visualPath.SetColors (Color.red,Color.blue);
-        visualPath.SetWidth(.5f, .5f);
+        // visualPath.SetColors (Color.red,Color.blue);
+        visualPath.startWidth = .15f;
+        visualPath.endWidth = .15f;
         visualPath.positionCount = path.Count + 1;
-
-        visualPath.SetPosition(0,start.gameObject.transform.position);
+        var startPos = start.gameObject.transform.position;
+        visualPath.SetPosition(0, new Vector3(startPos.x, startPos.y + .07f, startPos.z));
         int i = 1;
         foreach (Edge e in path)
         {
-            visualPath.SetPosition(i,e.DestinationNode.gameObject.transform.position);
+            var ePos = e.DestinationNode.gameObject.transform.position;
+            visualPath.SetPosition(i,
+                new Vector3(ePos.x, 
+                    ePos.y + .07f, 
+                    ePos.z));
             i++;
         }
+
+        visualPath.alignment = LineAlignment.View;
 
     }
     

@@ -81,6 +81,10 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject Bio_Pane;
     [SerializeField] private GameObject BIO_Content;
     private TextMeshProUGUI bioContentTMP;
+    
+    // Navigation Prompts
+    [SerializeField] private GameObject navPrompts;
+    private TextMeshPro navigatingToTMP;
 
     // Initialize Empty Game Object in which Exhibit Game Objects are nested
     [SerializeField] private GameObject exhibitCollectionGO;
@@ -97,12 +101,10 @@ public class HUD : MonoBehaviour
     private Dictionary<string, Period> periodDict;
     private Dictionary<string, Artist> artistDict;
     
-    // Boolean for HUD Display
-    private bool HUDActive;
-    
     // Navigation Variables
     private bool navigatingToExhibit = false;
     private Node destExhibitNode;
+    private string destExhibitName;
     
 
     // Enumerator for Selected Menu
@@ -115,6 +117,9 @@ public class HUD : MonoBehaviour
         Exhibit
     }
     private LRCursor currentPane;
+
+    private bool hudActive = false;
+    public bool HUDActive => hudActive;
     
     // Start is called before the first frame update
     void Start()
@@ -152,6 +157,8 @@ public class HUD : MonoBehaviour
         exhibitNavToTMP = exhibit_NavTo_GO.GetComponent<TextMeshPro>();
         
         bioContentTMP = BIO_Content.GetComponent<TextMeshProUGUI>();
+
+        navigatingToTMP = navPrompts.transform.GetChild(0).GetComponent<TextMeshPro>();
         
         briefTMPs = new List<TextMeshPro>
         {
@@ -164,13 +171,10 @@ public class HUD : MonoBehaviour
         displayPeriods = new List<string>();    // Initialize displayPeriods
         ParseExhibitDoc();  // Read in Artist Document
         
-        // Deactivate all Menus
-        DeActivateArtist();
-        DeActivateExhibitSelection();
-        DeActivateSelectedExhibit();
-        DeActivateBio();
+        DeActivateAllHUDObjects();
 
         destExhibitNode = null;
+        destExhibitName = "";
         
         // Deactivate HUD After testing
         ActivateHUD();
@@ -187,6 +191,7 @@ public class HUD : MonoBehaviour
 
         if (navigatingToExhibit)
         {
+            ActivateNavPrompts(destExhibitName);
             graphScript.DisplayPath(Player.NearestNode, destExhibitNode);
         }
     }
@@ -197,17 +202,35 @@ public class HUD : MonoBehaviour
         currentPane = LRCursor.Period;
         selectedPeriodIndex = displayPeriods.Count / 2;
         ActivatePeriod();
+        hudActive = true;
     }
     
     public void DeActivateHUD()
     {
-        HUDGO.SetActive(false);
+        DeActivateAllHUDObjects();
+        // HUDGO.SetActive(false);
+    }
+
+    private void DeActivateAllHUDObjects()
+    {
+        // Deactivate all Menus
+        DeActivatePeriod();
+        DeActivateArtist();
+        DeActivateExhibitSelection();
+        DeActivateSelectedExhibit();
+        DeActivateBio();
+        DeActivateNavPrompts();
     }
 
     private void ActivatePeriod()
     {
         period_GO.SetActive(true);
         UpdatePeriod(0);
+    }
+
+    private void DeActivatePeriod()
+    {
+        period_GO.SetActive(false);
     }
 
     private void ActivateArtist(bool leftSwipe)
@@ -521,11 +544,29 @@ public class HUD : MonoBehaviour
     {
         navigatingToExhibit = true;
         destExhibitNode = destNode.NearestNode;
+        destExhibitName = destNode.ExhibitName;
+        DeActivateAllHUDObjects();
+
     }
 
-    private void EndNavigation()
+    private void ActivateNavPrompts(String destNode)
+    {
+        navPrompts.SetActive(true);
+        navigatingToTMP.SetText($"Navigating to {destNode}");
+    }
+
+    private void DeActivateNavPrompts()
+    {
+        navPrompts.SetActive(false);
+    }
+    
+    
+
+    public void EndNavigation()
     {
         navigatingToExhibit = false;
+        destExhibitNode = null;
+        destExhibitName = "";
     }
     
 
