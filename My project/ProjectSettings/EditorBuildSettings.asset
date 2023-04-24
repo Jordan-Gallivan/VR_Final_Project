@@ -9,3 +9,4 @@ EditorBuildSettings:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: ee8e05134b145d244b707312aa9b9dac, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 8b321ca9322e14407867b72967cc7ea9, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fefb51939e6904e44a58aa0bf710bc52, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: cd39a0747805a8b4aa6164b6a7ad4761, type: 2}
