@@ -59,6 +59,18 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/Grasp",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/Trigger",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/TouchPadSelect",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },

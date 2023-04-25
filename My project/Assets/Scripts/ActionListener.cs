@@ -22,20 +22,11 @@ public class ActionListener : MonoBehaviour
     [SerializeField] private GameObject HUDGO;
     private HUD HUDScript;
 
-    [SerializeField] private SteamVR_Action_Single menu;
-    [SerializeField] private SteamVR_Action_Vector2 touchPad;
-
-
-    
-    // inputs
-    // [SerializeField] private InputActionReference leftTrig;
-    // [SerializeField] private InputActionReference rightTrig;
-    // [SerializeField] private InputActionReference leftGrasp;
-    // [SerializeField] private InputActionReference rightGrasp;
-    // [SerializeField] private InputActionReference leftTrackPad;
-    // [SerializeField] private InputActionReference rightTrackPad;
-    // [SerializeField] private InputActionReference leftTPSelect;
-    // [SerializeField] private InputActionReference rightTPSelect;
+    public SteamVR_Action_Boolean menu;
+    public SteamVR_Action_Boolean grasp;
+    public SteamVR_Action_Boolean trig;
+    public SteamVR_Action_Boolean touchPadSelect;
+    public SteamVR_Action_Vector2 touchPad;
 
 
     // // Boolean Control values
@@ -75,15 +66,19 @@ public class ActionListener : MonoBehaviour
         // }
         
         
-        Vector2 tp = touchPad.GetAxis(SteamVR_Input_Sources.LeftHand);
+        if (grasp.GetState(SteamVR_Input_Sources.LeftHand)) {
+            LeftGrasp();
+        }
 
         /////////////////////////////////////////
         /////   Update Player and Item      /////
         /////////////////////////////////////////
 
         // move and rotate the player according to trackpad input
-        // player.MovePlayer(leftTrackPad.action.ReadValue<Vector2>());
-        // player.RotatePlayer(rightTrackPad.action.ReadValue<Vector2>());
+        Debug.Log(touchPad.GetAxis(SteamVR_Input_Sources.LeftHand));
+        Debug.Log(touchPad.GetAxis(SteamVR_Input_Sources.RightHand));
+        player.MovePlayer(touchPad.GetAxis(SteamVR_Input_Sources.LeftHand));
+        player.RotatePlayer(touchPad.GetAxis(SteamVR_Input_Sources.RightHand));
 
         // move and rotate selected item
         // if (itemIsMoving && itemIsRotating)

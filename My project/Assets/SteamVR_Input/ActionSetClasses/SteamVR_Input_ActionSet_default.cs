@@ -121,6 +121,30 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean Grasp
+        {
+            get
+            {
+                return SteamVR_Actions.default_Grasp;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean Trigger
+        {
+            get
+            {
+                return SteamVR_Actions.default_Trigger;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean TouchPadSelect
+        {
+            get
+            {
+                return SteamVR_Actions.default_TouchPadSelect;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

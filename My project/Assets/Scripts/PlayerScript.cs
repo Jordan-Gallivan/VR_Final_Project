@@ -54,9 +54,15 @@ public class PlayerScript : MonoBehaviour
     {
         // z = forward (vector2.y)
         // x = strafe (vector2.x)
+        if ((trackPad.x > -0.1 && trackPad.x < 0.1) && (trackPad.y > -0.1 && trackPad.y < 0.1)) return;
+        else
+        {
+            this.transform.position += velocityConstant * Time.deltaTime * new Vector3(trackPad.x, 0f, trackPad.y);
+        //    rb.AddForce(trackPad.x * velocityConstant, 0f , trackPad.y * velocityConstant, 
+        //     ForceMode.VelocityChange);
+        }
         
-        rb.AddForce(trackPad.x * velocityConstant, 0f , trackPad.y * velocityConstant, 
-            ForceMode.VelocityChange);
+        
     }
 
     public void RotatePlayer(Vector2 trackPad)
