@@ -22,8 +22,8 @@ public class ActionListener : MonoBehaviour
     [SerializeField] private GameObject HUDGO;
     private HUD HUDScript;
 
-    // [SerializeField] private SteamVR_Action_Single menu;
-    // [SerializeField] private SteamVR_Action_Vector2 touchPad;
+    [SerializeField] private SteamVR_Action_Single menu;
+    [SerializeField] private SteamVR_Action_Vector2 touchPad;
 
 
     
@@ -67,19 +67,24 @@ public class ActionListener : MonoBehaviour
         /////////////////////////////////////////
         /////   Detect controller inputs    /////
         /////////////////////////////////////////
-
+        
+        
+        
         // if (SteamVR_Input.default.inActions.Teleport.GetStateDown(SteamVR_Input_Sources.Any)) {
         //     LeftTPPress();
         // }
         
+        
+        Vector2 tp = touchPad.GetAxis(SteamVR_Input_Sources.LeftHand);
+
         /////////////////////////////////////////
         /////   Update Player and Item      /////
         /////////////////////////////////////////
-    
+
         // move and rotate the player according to trackpad input
         // player.MovePlayer(leftTrackPad.action.ReadValue<Vector2>());
         // player.RotatePlayer(rightTrackPad.action.ReadValue<Vector2>());
-        
+
         // move and rotate selected item
         // if (itemIsMoving && itemIsRotating)
         // {
