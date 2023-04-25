@@ -8,6 +8,7 @@ using UnityEngine;
 //using UnityEngine.XR;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
+using Valve.VR;
 
 
 
@@ -20,6 +21,11 @@ public class ActionListener : MonoBehaviour
     // HUD Game Object and Script
     [SerializeField] private GameObject HUDGO;
     private HUD HUDScript;
+
+    // [SerializeField] private SteamVR_Action_Single menu;
+    // [SerializeField] private SteamVR_Action_Vector2 touchPad;
+
+
     
     // inputs
     // [SerializeField] private InputActionReference leftTrig;
@@ -32,15 +38,15 @@ public class ActionListener : MonoBehaviour
     // [SerializeField] private InputActionReference rightTPSelect;
 
 
-    // Boolean Control values
-    private bool itemIsMoving;
-    private bool itemIsRotating;
+    // // Boolean Control values
+    // private bool itemIsMoving;
+    // private bool itemIsRotating;
     
-    // controller positions
-    private Vector3 origControllerPos = Vector3.zero;
-    private Vector3 updatedControllerPos = Vector3.zero;
-    private Quaternion origControllerRot = Quaternion.identity;
-    private Quaternion updatedControllerRot = Quaternion.identity;
+    // // controller positions
+    // private Vector3 origControllerPos = Vector3.zero;
+    // private Vector3 updatedControllerPos = Vector3.zero;
+    // private Quaternion origControllerRot = Quaternion.identity;
+    // private Quaternion updatedControllerRot = Quaternion.identity;
 
     void Start()
     {
@@ -61,79 +67,9 @@ public class ActionListener : MonoBehaviour
         /////////////////////////////////////////
         /////   Detect controller inputs    /////
         /////////////////////////////////////////
-    
-        // left Grasp => 
-        // if (leftGrasp.action.WasPerformedThisFrame())
-        // {
-        //     Debug.Log("Left Grasp Works");
-        //     // leftgrasp functionality
-        // }
-        // if (leftGrasp.action.WasReleasedThisFrame())
-        // {
-        //     Debug.Log("Left Grasp Deselected");
-        //     // left grasp deactivate
-        // }
-        //
-        // // left Trig => 
-        // if (leftTrig.action.WasPerformedThisFrame())
-        // {
-        //     Debug.Log("Left Trig Works");
-        //     // left trig
-        // }
-        // if (leftTrig.action.WasReleasedThisFrame())
-        // {
-        //     Debug.Log("Left Trig deselected");
-        //     // left trig 
-        // }
-        //
-        // // right grasp => Move and Rotate Object
-        // if (rightGrasp.action.WasPerformedThisFrame())
-        // {
-        //     Debug.Log("Right Grasp Works");
-        //     // itemIsMoving = true;
-        //     // itemIsRotating = true;
-        // }
-        // if (rightGrasp.action.WasReleasedThisFrame())
-        // {
-        //     Debug.Log("Right Grasp Deselected");
-        //     // tractorBeam.EndMovement();
-        //     // tractorBeam.EndRotation();
-        //     // itemIsMoving = false;
-        //     // itemIsRotating = false;
-        // }
-        //
-        // // right trigger => Summon Object
-        // if (rightTrig.action.WasPerformedThisFrame())
-        // {
-        //     Debug.Log("Right Trig Works");
-        //     // right trig
-        // }
-        // if (rightTrig.action.WasReleasedThisFrame())
-        // {
-        //     Debug.Log("Right Trig deselected");
-        //     // right trig
-        // }
-        //
-        // if (leftTPSelect.action.WasPerformedThisFrame())
-        // {
-        //     Debug.Log("Left TP Select Works");
-        //     // right trig
-        // }
-        // if (leftTPSelect.action.WasReleasedThisFrame())
-        // {
-        //     Debug.Log("Left TP deselected");
-        //     // right trig
-        // }
-        //
-        // if (rightTPSelect.action.WasPerformedThisFrame())
-        // {
-        //     Debug.Log("Right TP Select Works");
-        //     // right trig
-        // }
-        // if (rightTPSelect.action.WasReleasedThisFrame())
-        // {
-        //     Debug.Log("Right TP deselected");
-        //     // right trig
+
+        // if (SteamVR_Input.default.inActions.Teleport.GetStateDown(SteamVR_Input_Sources.Any)) {
+        //     LeftTPPress();
         // }
         
         /////////////////////////////////////////
@@ -191,5 +127,14 @@ public class ActionListener : MonoBehaviour
     {
         Debug.Log("Right TP");
     }
+
+    public void LeftMenu() {
+        Debug.Log("Left Menu");
+    }
+
+    public void RightMenu() {
+        Debug.Log("Right Menu");
+    }
+
 
 }
