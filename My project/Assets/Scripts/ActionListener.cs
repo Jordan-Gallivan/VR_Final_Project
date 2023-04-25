@@ -66,9 +66,13 @@ public class ActionListener : MonoBehaviour
         // }
         
         
-        if (menu.GetState(SteamVR_Input_Sources.LeftHand)) LeftMenu();
-        if (touchPadSelect.GetState(SteamVR_Input_Sources.LeftHand)) LeftTPPress();
-        if (menu.GetState(SteamVR_Input_Sources.RightHand)) RightMenu();
+        if (menu.GetChanged(SteamVR_Input_Sources.LeftHand) && 
+            menu.GetState(SteamVR_Input_Sources.LeftHand)) LeftMenu();
+        if (menu.GetChanged(SteamVR_Input_Sources.RightHand) && 
+            menu.GetState(SteamVR_Input_Sources.RightHand)) RightMenu();
+        if (touchPadSelect.GetChanged(SteamVR_Input_Sources.LeftHand) && 
+            touchPadSelect.GetState(SteamVR_Input_Sources.LeftHand)) LeftTPPress();
+        
 
         /////////////////////////////////////////
         /////   Update Player and Item      /////
