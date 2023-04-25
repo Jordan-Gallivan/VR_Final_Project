@@ -66,20 +66,25 @@ public class ActionListener : MonoBehaviour
         // }
         
         
-        if (grasp.GetState(SteamVR_Input_Sources.LeftHand)) {
-            LeftGrasp();
-        }
+        if (menu.GetState(SteamVR_Input_Sources.LeftHand)) LeftMenu();
+        if (touchPadSelect.GetState(SteamVR_Input_Sources.LeftHand)) LeftTPPress();
+        if (menu.GetState(SteamVR_Input_Sources.RightHand)) RightMenu();
 
         /////////////////////////////////////////
         /////   Update Player and Item      /////
         /////////////////////////////////////////
-
+        Vector2 leftTP = touchPad.GetAxis(SteamVR_Input_Sources.LeftHand);
+        Vector2 rightTP = touchPad.GetAxis(SteamVR_Input_Sources.RightHand);
+        
+        
+        if (HUDScript.HUDActive) return;
+        
         // move and rotate the player according to trackpad input
-        Debug.Log(touchPad.GetAxis(SteamVR_Input_Sources.LeftHand));
-        Debug.Log(touchPad.GetAxis(SteamVR_Input_Sources.RightHand));
+        Debug.Log(leftTP);
+        Debug.Log(rightTP);
         player.MovePlayer(touchPad.GetAxis(SteamVR_Input_Sources.LeftHand));
         player.RotatePlayer(touchPad.GetAxis(SteamVR_Input_Sources.RightHand));
-
+        
         // move and rotate selected item
         // if (itemIsMoving && itemIsRotating)
         // {
@@ -111,6 +116,11 @@ public class ActionListener : MonoBehaviour
     public void LeftTPPress()
     {
         Debug.Log("Left TP Press");
+        Vector2 leftTP = touchPad.GetAxis(SteamVR_Input_Sources.LeftHand);
+        if (!HUDScript.HUDActive) return;
+        if (leftTP.y > 0.25) HUDScript.SwipeUp(1);
+        else if (leftTP.y < -0.25)  HUDScript.SwipeDown(1);
+        else HUDScript.SwipeRight();
     }
 
     public void RightTPPress()
@@ -130,9 +140,12 @@ public class ActionListener : MonoBehaviour
 
     public void LeftMenu() {
         Debug.Log("Left Menu");
+        if (HUDScript.HUDActive)HUDScript.SwipeLeft();
+        else HUDScript.ActivateHUD();
     }
 
     public void RightMenu() {
+        if(HUDScript.NavigatingToExhibit) HUDScript.EndNavigation();
         Debug.Log("Right Menu");
     }
 

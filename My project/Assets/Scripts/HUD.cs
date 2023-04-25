@@ -103,6 +103,7 @@ public class HUD : MonoBehaviour
     
     // Navigation Variables
     private bool navigatingToExhibit = false;
+    public bool NavigatingToExhibit => navigatingToExhibit;
     private Node destExhibitNode;
     private string destExhibitName;
     
@@ -183,11 +184,11 @@ public class HUD : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("t")) SwipeUp();
-        if (Input.GetKeyDown("g")) SwipeDown();
-        
-        if (Input.GetKeyDown("j")) SwipeRight();
-        if (Input.GetKeyDown("h")) SwipeLeft();
+        // if (Input.GetKeyDown("t")) SwipeUp();
+        // if (Input.GetKeyDown("g")) SwipeDown();
+        //
+        // if (Input.GetKeyDown("j")) SwipeRight();
+        // if (Input.GetKeyDown("h")) SwipeLeft();
 
         if (navigatingToExhibit)
         {
@@ -208,6 +209,7 @@ public class HUD : MonoBehaviour
     public void DeActivateHUD()
     {
         DeActivateAllHUDObjects();
+        hudActive = false;
         // HUDGO.SetActive(false);
     }
 
@@ -429,6 +431,7 @@ public class HUD : MonoBehaviour
         switch (currentPane)
         {
             case LRCursor.Period:
+                DeActivateHUD();
                 break;
             case LRCursor.Artist:
                 currentPane = LRCursor.Period;
@@ -494,18 +497,18 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public void SwipeUp()
+    public void SwipeUp(int dir)
     {
         switch (currentPane)
         {
             case LRCursor.Period:
-                UpdatePeriod(1);
+                UpdatePeriod(dir);
                 break;
             case LRCursor.Artist:
-                UpdateArtist(1);
+                UpdateArtist(dir);
                 break;
             case LRCursor.ExhibitSelection:
-                UpdateExhibit(1);
+                UpdateExhibit(dir);
                 break;
             case LRCursor.Bio:
                 // need to add scroll for bio pane
@@ -517,18 +520,18 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public void SwipeDown()
+    public void SwipeDown(int dir)
     {
         switch (currentPane)
         {
             case LRCursor.Period:
-                UpdatePeriod(-1);
+                UpdatePeriod(dir);
                 break;
             case LRCursor.Artist:
-                UpdateArtist(-1);
+                UpdateArtist(dir);
                 break;
             case LRCursor.ExhibitSelection:
-                UpdateExhibit(-1);
+                UpdateExhibit(dir);
                 break;
             case LRCursor.Bio:
                 // need to add scroll for bio pane
@@ -564,6 +567,7 @@ public class HUD : MonoBehaviour
 
     public void EndNavigation()
     {
+        DeActivateNavPrompts();
         navigatingToExhibit = false;
         destExhibitNode = null;
         destExhibitName = "";
