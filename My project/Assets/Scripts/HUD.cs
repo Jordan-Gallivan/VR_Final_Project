@@ -199,6 +199,7 @@ public class HUD : MonoBehaviour
     
     public void ActivateHUD()
     {
+        DeActivateAllHUDObjects();
         HUDGO.SetActive(true);
         currentPane = LRCursor.Period;
         selectedPeriodIndex = displayPeriods.Count / 2;
@@ -208,6 +209,8 @@ public class HUD : MonoBehaviour
     
     public void DeActivateHUD()
     {
+        currentPane = LRCursor.Period;
+        selectedPeriodIndex = displayPeriods.Count / 2;
         DeActivateAllHUDObjects();
         hudActive = false;
         // HUDGO.SetActive(false);
@@ -548,7 +551,7 @@ public class HUD : MonoBehaviour
         navigatingToExhibit = true;
         destExhibitNode = destNode.NearestNode;
         destExhibitName = destNode.ExhibitName;
-        DeActivateAllHUDObjects();
+        DeActivateHUD();
 
     }
 
@@ -567,6 +570,7 @@ public class HUD : MonoBehaviour
 
     public void EndNavigation()
     {
+        DeActivateHUD();
         DeActivateNavPrompts();
         navigatingToExhibit = false;
         destExhibitNode = null;

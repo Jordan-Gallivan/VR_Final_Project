@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private GameObject player;
     
     // Player settings
-    [SerializeField] private float playerHeight = 1.5f;
+    [SerializeField] private float playerHeight;
     [SerializeField] private float velocityConstant = 2.0f;
     [SerializeField] private float rotationConstant = 1f;
     

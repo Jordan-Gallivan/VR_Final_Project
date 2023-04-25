@@ -121,10 +121,18 @@ public class ActionListener : MonoBehaviour
     {
         Debug.Log("Left TP Press");
         Vector2 leftTP = touchPad.GetAxis(SteamVR_Input_Sources.LeftHand);
+        float theta = Mathf.Atan(leftTP.y / leftTP.x);
+        float r = Mathf.Sqrt(Mathf.Pow(leftTP.y, 2.0f) + Mathf.Pow(leftTP.x, 2.0f));
         if (!HUDScript.HUDActive) return;
-        if (leftTP.y > 0.25) HUDScript.SwipeUp(1);
-        else if (leftTP.y < -0.25)  HUDScript.SwipeDown(1);
-        else HUDScript.SwipeRight();
+        Debug.Log(theta);
+        Debug.Log(r);
+        if (r < 0.5) Debug.Log("Center");
+        else {
+            if (leftTP.y > 0 && (theta > Mathf.PI / 4f || theta < -Mathf.PI / 4f)) Debug.Log("Swipe Up");
+            else if (leftTP.y < 0 && (theta > Mathf.PI / 4f || theta < -Mathf.PI / 4f)) Debug.Log("Swipe Down");
+            else if (leftTP.x > 0) Debug.Log("Swipe Right");
+            else Debug.Log("Swipe Left");
+        }
     }
 
     public void RightTPPress()
