@@ -152,4 +152,44 @@ public class ActionListener : MonoBehaviour
         // }
     }
 
+    public void LeftGrasp()
+    {
+        Debug.Log("Left Grasp");
+    }
+
+    public void RightGrasp()
+    {
+        Debug.Log("Right Grasp");
+    }
+
+    public void LeftTrig()
+    {
+        Debug.Log("Left Trig");
+    }
+
+    public void RightTrig()
+    {
+        Debug.Log("Right Trig");
+    }
+
+    public void LeftTPPress()
+    {
+        Debug.Log("Left TP Press");
+    }
+
+    public void RightTPPress()
+    {
+        Debug.Log("Right TP Press");
+    }
+
+    public void LeftTP()
+    {
+        Debug.Log("Left TP");
+    }
+
+    public void RightTP()
+    {
+        Debug.Log("Right TP");
+    }
+
 }
