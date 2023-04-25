@@ -761,3 +761,349 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001875 seconds.
+Begin MonoManager ReloadAssembly
+Thread 0x16d163000 may have been prematurely finalized
+Symbol file LoadedFromMemory doesn't match image /Users/jordangallivan/gitHub/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/jordangallivan/gitHub/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.74 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.769 seconds
+Domain Reload Profiling:
+	ReloadAssembly (770ms)
+		BeginReloadAssembly (86ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (36ms)
+		EndReloadAssembly (621ms)
+			LoadAssemblies (32ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (223ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (279ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (48ms)
+				ProcessInitializeOnLoadAttributes (183ms)
+				ProcessInitializeOnLoadMethodAttributes (39ms)
+				AfterProcessingInitializeOnLoad (1ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.45 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4633 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 34 unused Assets / (1.4 MB). Loaded Objects now: 5241.
+Memory consumption went from 203.9 MB to 202.5 MB.
+Total: 3.232958 ms (FindLiveObjects: 0.158250 ms CreateObjectMapping: 0.060458 ms MarkObjects: 2.470083 ms  DeleteObjects: 0.543375 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 4239.748501 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/HandleLong.FBX
+  artifactKey: Guid(4e88337f4086fd74b926d606cd8e05f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/HandleLong.FBX using Guid(4e88337f4086fd74b926d606cd8e05f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b28213023018eb2b1813e50c6813c705') in 0.092013 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000050 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Needle_Knob_BlackWhite.FBX
+  artifactKey: Guid(17452e6f7c2d8984d8b0b0ac65fa20bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Needle_Knob_BlackWhite.FBX using Guid(17452e6f7c2d8984d8b0b0ac65fa20bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9be15132e21c09669bd3848038278b2') in 0.012204 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Mid_Plate.FBX
+  artifactKey: Guid(c50424076dc6b9e4ba68eebee5e0abad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Mid_Plate.FBX using Guid(c50424076dc6b9e4ba68eebee5e0abad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6241056d171f40115fdfb4907180641f') in 0.011211 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000064 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Plate.FBX
+  artifactKey: Guid(9f4c66bbea4776f4ba0cd99b43f1436a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Plate.FBX using Guid(9f4c66bbea4776f4ba0cd99b43f1436a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '47b8838154161aa2f256c6dc985deb0f') in 0.011478 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000066 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Roller_3.FBX
+  artifactKey: Guid(b145d594bab11054c82636ff9dc770a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Roller_3.FBX using Guid(b145d594bab11054c82636ff9dc770a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75906170f0c3648b59cdb271492a0ff7') in 0.013567 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/LampFrame.FBX
+  artifactKey: Guid(4407fa26fad30e142a08c624907a0a6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/LampFrame.FBX using Guid(4407fa26fad30e142a08c624907a0a6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ff4784b869317f8026a5e54305fcebe') in 0.011312 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Monitor_Round.FBX
+  artifactKey: Guid(de2d41fa7bec0a54c91b39e50193ea49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Monitor_Round.FBX using Guid(de2d41fa7bec0a54c91b39e50193ea49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12dcc9a82891f8fa83f1f436f365a1d9') in 0.030372 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000054 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Gauge_Round_2.FBX
+  artifactKey: Guid(cb47aed425f577a47bdf943ae6b5e074) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Gauge_Round_2.FBX using Guid(cb47aed425f577a47bdf943ae6b5e074) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '457cad0c7208c06000440020ac8f71e6') in 0.024487 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Knob.FBX
+  artifactKey: Guid(cd8b0484f6bad9d44a3519df2daa4fdf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Knob.FBX using Guid(cd8b0484f6bad9d44a3519df2daa4fdf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4029612391f566b0b18bfddd9d29ca8') in 0.012446 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000045 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Monitor_Big.FBX
+  artifactKey: Guid(cf1487d7a2eef384d948b589c1e4a3c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Monitor_Big.FBX using Guid(cf1487d7a2eef384d948b589c1e4a3c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f962ed8d7dc092986fe1c27c7573e517') in 0.024523 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/JackInput.FBX
+  artifactKey: Guid(8361119af2b226349a51449259d97504) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/JackInput.FBX using Guid(8361119af2b226349a51449259d97504) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d5638ff40107e483a6d83e64c410433') in 0.013942 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Roller_2.FBX
+  artifactKey: Guid(77d24b50325931c49bcd40073dba9ccd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Roller_2.FBX using Guid(77d24b50325931c49bcd40073dba9ccd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23f0a9958b93f02306a1e84ad110ea0c') in 0.012284 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000053 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Gauge_Wide.FBX
+  artifactKey: Guid(e22503990ec5b084b8678dc869d6d77f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Gauge_Wide.FBX using Guid(e22503990ec5b084b8678dc869d6d77f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f18ac15269fb0675258d6c60e4645b9b') in 0.020722 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Knob_Plate_Big.FBX
+  artifactKey: Guid(bbb9550141d5f3646b870c71e7a27e1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Knob_Plate_Big.FBX using Guid(bbb9550141d5f3646b870c71e7a27e1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45fb8521c1aadd3edf3c6a9c52db5aca') in 0.010069 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000049 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/SmallMonitorFrame.FBX
+  artifactKey: Guid(321d64d5bc5abc34a959a29889cd1a46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/SmallMonitorFrame.FBX using Guid(321d64d5bc5abc34a959a29889cd1a46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58c84aec8ff57af35d873bd59aca0f2b') in 0.009959 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000035 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Gauge_Square.FBX
+  artifactKey: Guid(ef6e46b448ee6fa4f802c4c344be67fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Gauge_Square.FBX using Guid(ef6e46b448ee6fa4f802c4c344be67fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2710a2ef31c500d83a0d41efe3cfd2e6') in 0.020731 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Switch.FBX
+  artifactKey: Guid(f9e23f24ee2193c44827ba34a21de852) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Switch.FBX using Guid(f9e23f24ee2193c44827ba34a21de852) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fba7af7c377782f11c2b397767b140a') in 0.020912 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Magentic_Tape.FBX
+  artifactKey: Guid(b217747873737c94e98a8bb3d10dc088) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Magentic_Tape.FBX using Guid(b217747873737c94e98a8bb3d10dc088) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '138f8485b7d9aed2c99ef490cc5054ec') in 0.010048 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Roller_Spindle.FBX
+  artifactKey: Guid(b906e24ae80ec9c44a224ff46edd7806) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Megapoly.Art/Vintage Controls/Meshes/Roller_Spindle.FBX using Guid(b906e24ae80ec9c44a224ff46edd7806) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '602b9e8ae1f096a065733c4da3c3376c') in 0.013174 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002402 seconds.
+Begin MonoManager ReloadAssembly
+Thread 0x16d163000 may have been prematurely finalized
+Symbol file LoadedFromMemory doesn't match image /Users/jordangallivan/gitHub/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/jordangallivan/gitHub/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.78 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.780 seconds
+Domain Reload Profiling:
+	ReloadAssembly (781ms)
+		BeginReloadAssembly (86ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (36ms)
+		EndReloadAssembly (633ms)
+			LoadAssemblies (32ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (233ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (281ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (48ms)
+				ProcessInitializeOnLoadAttributes (186ms)
+				ProcessInitializeOnLoadMethodAttributes (39ms)
+				AfterProcessingInitializeOnLoad (1ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.48 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4633 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 34 unused Assets / (1.4 MB). Loaded Objects now: 5245.
+Memory consumption went from 208.2 MB to 206.7 MB.
+Total: 3.241458 ms (FindLiveObjects: 0.160125 ms CreateObjectMapping: 0.059875 ms MarkObjects: 2.522042 ms  DeleteObjects: 0.498333 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001946 seconds.
+Begin MonoManager ReloadAssembly
+Thread 0x16d163000 may have been prematurely finalized
+Symbol file LoadedFromMemory doesn't match image /Users/jordangallivan/gitHub/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/jordangallivan/gitHub/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.68 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.774 seconds
+Domain Reload Profiling:
+	ReloadAssembly (775ms)
+		BeginReloadAssembly (84ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (35ms)
+		EndReloadAssembly (626ms)
+			LoadAssemblies (32ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (229ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (36ms)
+			SetupLoadedEditorAssemblies (281ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (6ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (57ms)
+				ProcessInitializeOnLoadAttributes (179ms)
+				ProcessInitializeOnLoadMethodAttributes (37ms)
+				AfterProcessingInitializeOnLoad (1ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.31 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4640 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 34 unused Assets / (1.4 MB). Loaded Objects now: 5256.
+Memory consumption went from 208.3 MB to 206.9 MB.
+Total: 3.011667 ms (FindLiveObjects: 0.160500 ms CreateObjectMapping: 0.060875 ms MarkObjects: 2.273958 ms  DeleteObjects: 0.515667 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002311 seconds.
+Begin MonoManager ReloadAssembly
+Thread 0x16d163000 may have been prematurely finalized
+Symbol file LoadedFromMemory doesn't match image /Users/jordangallivan/gitHub/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Editor/VisualScripting.Core/Dependencies/YamlDotNet/Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image /Users/jordangallivan/gitHub/VR_Final_Project/My project/Library/PackageCache/com.unity.visualscripting@1.8.0/Editor/VisualScripting.Core/Dependencies/DotNetZip/Unity.VisualScripting.IonicZip.dll
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.725 seconds
+Domain Reload Profiling:
+	ReloadAssembly (725ms)
+		BeginReloadAssembly (79ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (3ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (33ms)
+		EndReloadAssembly (584ms)
+			LoadAssemblies (31ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (220ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (33ms)
+			SetupLoadedEditorAssemblies (256ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (5ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (43ms)
+				ProcessInitializeOnLoadAttributes (171ms)
+				ProcessInitializeOnLoadMethodAttributes (36ms)
+				AfterProcessingInitializeOnLoad (1ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (3ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.26 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4640 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 34 unused Assets / (1.4 MB). Loaded Objects now: 5260.
+Memory consumption went from 208.4 MB to 206.9 MB.
+Total: 3.056125 ms (FindLiveObjects: 0.153541 ms CreateObjectMapping: 0.060375 ms MarkObjects: 2.340292 ms  DeleteObjects: 0.501167 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
