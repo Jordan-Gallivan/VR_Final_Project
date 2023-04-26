@@ -14,10 +14,14 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float velocityConstant = 2.0f;
     [SerializeField] private float rotationConstant = 1f;
     
-    // Nearest Node
+    // Nearest Nodes
     private Node nearestNode;
     private GameObject nearestNodeGO;
     public Node NearestNode => nearestNode;
+    
+    private Node nearestMusicNode;
+    private GameObject nearestMusicNodeGO;
+    public Node NearestMusicNode => nearestMusicNode;
 
     // Start is called before the first frame update
     void Start()
@@ -30,29 +34,55 @@ public class PlayerScript : MonoBehaviour
     {
         rayDown();
 
-        // Determine Nearest Node
+        // Determine Nearest Nodes
         RaycastHit[] nodes = Physics.SphereCastAll(
             new Vector3(player.transform.position.x, 
                 player.transform.position.y + 20f, player.transform.position.z),
             10.0f, new Vector3(0f, -1f, 0f));
-        float nearestDistance = Mathf.Infinity;
+        float nearestNodeDist = Mathf.Infinity;
+        float nearestMusicNodeDist = Mathf.Infinity;
+
+        nearestNode = null;
+        nearestMusicNode = null;
         nearestNodeGO = null;
+        var prevMusicNodeGO = nearestMusicNodeGO;
+        nearestMusicNodeGO = null;
+        
         foreach (RaycastHit hit in nodes)
         {
-            if ((hit.distance < nearestDistance) && (hit.collider.gameObject != nearestNodeGO) &&
+            // determine nearest node for navigation
+            if ((hit.distance < nearestNodeDist) && (hit.collider.gameObject != nearestNodeGO) &&
                 hit.transform.gameObject.layer == LayerMask.NameToLayer("Node"))
             {
-                nearestDistance = hit.distance;
+                nearestNodeDist = hit.distance;
                 nearestNodeGO = hit.transform.gameObject;
+            }
+            
+            // determine nearest node for music
+            if ((hit.distance < nearestMusicNodeDist) && (hit.collider.gameObject != nearestMusicNodeGO) &&
+                hit.transform.gameObject.layer == LayerMask.NameToLayer("MusicNode"))
+            {
+                nearestMusicNodeDist = hit.distance;
+                nearestMusicNodeGO = hit.transform.gameObject;
             }
         }
 
         if (nearestNodeGO != null) nearestNode = nearestNodeGO.GetComponent<Node>();
+
+        if (nearestMusicNodeGO != null && nearestMusicNodeGO != prevMusicNodeGO)
+        {
+            // Deactivate previous music
+            // Activate new music
+        }
+        
+        
     }
 
 
     public void MovePlayer(Vector2 trackPad)
     {
+        // add raycast in direction of trackpad, only excute movement if that raycast is clean
+
         // z = forward (vector2.y)
         // x = strafe (vector2.x)
         if ((trackPad.x > -0.1 && trackPad.x < 0.1) && (trackPad.y > -0.1 && trackPad.y < 0.1)) 

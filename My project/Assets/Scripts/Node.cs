@@ -6,20 +6,6 @@ using UnityEngine;
 
 public class Node : MonoBehaviour, IComparable
 {
-    // // Enumerable Object of available node names for user selection
-    // enum Names
-    // {
-    //     A1,
-    //     A2,
-    //     A3,
-    //     B1,
-    //     B2,
-    //     B3,
-    //     C1
-    // };
-    // [SerializeField] private Names nodeName = new Names();
-    // public string Name => nodeName.ToString();  // getter for Node Name
-    
     // Node color and render properties
     private Renderer nodeRenderer;
     private Color clear = new Color(1f, 1f, 1f, 0f);

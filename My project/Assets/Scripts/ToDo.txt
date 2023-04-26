@@ -1,12 +1,33 @@
 To Do:
 
-o	Exhibit description on each exhibit
-o 	Fix pictures on all walls
-o 	raise all lights
-o 	get movement down
-o	prevent player from going through walls
-o	blank planes on walls of exhibits 
-	o add music script
-	o add raycasting to player script (in direction of camera)
-	o display exhibit on HUD
-o	bibliography
+o	Exhibit description on each exhibit - Kyle
+
+x 	Fix pictures on all walls
+
+o 	raise all lights - Kyle
+
+o 	get movement down - Jordan
+
+o	prevent player from going through walls - Both
+
+o	fix biography text pane - Jordan
+
+x	blank planes on walls of exhibits 
+	x add raycasting to player script (in direction of camera) - Jordan
+	x display exhibit on HUD - Jordan
+	x add colliders to all exhibits
+	x add "blank" planes so there is no bleed over
+	x add exhibit description to currView
+
+o	bibliography - Kyle
+
+o 	Music - Both
+	o add music script to nodes
+	o change to nodemusic layer
+	x update sphere casting to || musicnode
+	x add to sphere casting
+
+o 	Throwable Things
+	x add throwable to all selectable objects
+	o verify throwable still works
+	o modify throwable to return to orig pos

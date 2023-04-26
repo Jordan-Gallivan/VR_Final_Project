@@ -82,12 +82,22 @@ public class HUD : MonoBehaviour
 
     // Initialize Biography Game Objects and TMPs
     [SerializeField] private GameObject Bio_Pane;
+    [SerializeField] private GameObject Bio_Artist;
     [SerializeField] private GameObject BIO_Content;
-    private TextMeshProUGUI bioContentTMP;
+    private TextMeshPro bioArtistTMP;
+    private TextMeshPro bioContentTMP;
     
     // Navigation Prompts
     [SerializeField] private GameObject navPrompts;
     private TextMeshPro navigatingToTMP;
+    
+    // Currently Viewing Prompt
+    [SerializeField] private GameObject currViewGO;
+    [SerializeField] private GameObject currViewDescGO;
+    private TextMeshPro currViewTMP;
+    private TextMeshPro currViewDescTMP;
+    private GameObject nearestArtist;
+    private string nearestArtistName;
 
     // Initialize Empty Game Object in which Exhibit Game Objects are nested
     [SerializeField] private GameObject exhibitCollectionGO;
@@ -160,9 +170,16 @@ public class HUD : MonoBehaviour
         exhibitDescTMP = exhibit_Desc_GO.GetComponent<TextMeshPro>();
         exhibitNavToTMP = exhibit_NavTo_GO.GetComponent<TextMeshPro>();
         
-        bioContentTMP = BIO_Content.GetComponent<TextMeshProUGUI>();
+        bioContentTMP = BIO_Content.GetComponent<TextMeshPro>();
+        bioArtistTMP = Bio_Artist.GetComponent<TextMeshPro>();
 
         navigatingToTMP = navPrompts.transform.GetChild(0).GetComponent<TextMeshPro>();
+
+        currViewTMP = currViewGO.GetComponent<TextMeshPro>();
+        currViewDescTMP = currViewDescGO.GetComponent<TextMeshPro>();
+        nearestArtist = null;
+        nearestArtistName = "";
+        currViewDescTMP.SetText("");
         
         briefTMPs = new List<TextMeshPro>
         {
@@ -197,6 +214,46 @@ public class HUD : MonoBehaviour
         {
             ActivateNavPrompts(destExhibitName);
             graphScript.DisplayPath(Player.NearestNode, destExhibitNode);
+        }
+
+        if (!hudActive)
+        {
+            currViewGO.SetActive(true);
+            currViewDescGO.SetActive(true);
+            RaycastHit[] artistPlanes = Physics.RaycastAll(transform.position, 
+                transform.forward, 22f);
+
+            float nearestHit = Mathf.Infinity;
+            nearestArtist = null;
+            foreach (var hit in artistPlanes)
+            {
+                if ((hit.distance < nearestHit) && (hit.collider.gameObject != nearestArtist) &&
+                    hit.transform.gameObject.layer == LayerMask.NameToLayer("Artist"))
+                {
+                    nearestHit = hit.distance;
+                    nearestArtist = hit.transform.gameObject;
+                }
+            }
+
+            if (nearestArtist == null) nearestArtistName = "";
+            else
+            {
+                if (nearestArtist.name != "Blank")
+                    nearestArtistName = nearestArtist.name;
+                
+                var nearestArtistExhibit = nearestArtist.GetComponent<Exhibit>();
+                if ( nearestArtistExhibit != null) 
+                    currViewDescTMP.SetText(nearestArtistExhibit.ExhibitDesc);
+                else 
+                    currViewDescTMP.SetText("");
+            }
+            
+            currViewTMP.SetText(nearestArtistName);
+        }
+        else
+        {
+            currViewGO.SetActive(false);
+            currViewDescGO.SetActive(false);
         }
     }
     
@@ -287,6 +344,7 @@ public class HUD : MonoBehaviour
     private void ActivateBio()
     {
         Bio_Pane.SetActive(true);
+        bioArtistTMP.text = displayArtists[selectedArtistIndex].ArtistName;
         bioContentTMP.text = displayArtists[selectedArtistIndex].Bio;
     }
 
