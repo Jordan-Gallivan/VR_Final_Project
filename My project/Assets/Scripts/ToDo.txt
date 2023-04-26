@@ -1,0 +1,12 @@
+To Do:
+
+o	Exhibit description on each exhibit
+o 	Fix pictures on all walls
+o 	raise all lights
+o 	get movement down
+o	prevent player from going through walls
+o	blank planes on walls of exhibits 
+	o add music script
+	o add raycasting to player script (in direction of camera)
+	o display exhibit on HUD
+o	bibliography

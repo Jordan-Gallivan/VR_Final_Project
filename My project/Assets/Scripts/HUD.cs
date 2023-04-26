@@ -53,6 +53,9 @@ public class HUD : MonoBehaviour
     private TextMeshPro artistBrief3TMP;
     private TextMeshPro artistBrief4TMP;
     private List<TextMeshPro> briefTMPs;
+    private List<float> artistPlus1Pos = new List<float> { -0.7f, -0.14f, -0.20f, -0.26f, -0.31f };
+    private float artistPlus1x = 8.65f;
+    private float artistPlus1z = 1.88f;
     
     // Initialize Exhibit Menu Game Objects and TMPs
     [SerializeField] private GameObject exhibit_GO;
@@ -72,7 +75,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject exhibit_Name_GO;
     [SerializeField] private GameObject exhibit_Desc_GO;
     [SerializeField] private GameObject exhibit_NavTo_GO;
-    private string NavToString = "Swipe Right to Navigate to ";
+    private string NavToString = "Right Click to Navigate to ";
     private TextMeshPro exhibitNameTMP;
     private TextMeshPro exhibitDescTMP;
     private TextMeshPro exhibitNavToTMP;
@@ -137,7 +140,7 @@ public class HUD : MonoBehaviour
         periodSelectedTMP = period_selected_GO.GetComponent<TextMeshPro>();
         periodPlus1TMP = period_plus1_GO.GetComponent<TextMeshPro>();
         periodPlus2TMP = period_plus2_GO.GetComponent<TextMeshPro>();
-        
+
         artistNeg2TMP = artist_neg2_GO.GetComponent<TextMeshPro>();
         artistNeg1TMP = artist_neg1_GO.GetComponent<TextMeshPro>();
         artistSelectedTMP = artist_selected_GO.GetComponent<TextMeshPro>();
@@ -146,7 +149,7 @@ public class HUD : MonoBehaviour
         artistBrief2TMP = artist_brief2_GO.GetComponent<TextMeshPro>();
         artistBrief3TMP = artist_brief3_GO.GetComponent<TextMeshPro>();
         artistBrief4TMP = artist_brief4_GO.GetComponent<TextMeshPro>();
-        
+
         exhibitNeg2TMP = exhibit_neg2_GO.GetComponent<TextMeshPro>();
         exhibitNeg1TMP = exhibit_neg1_GO.GetComponent<TextMeshPro>();
         exhibitSelectedTMP = exhibit_selected_GO.GetComponent<TextMeshPro>();
@@ -178,17 +181,17 @@ public class HUD : MonoBehaviour
         destExhibitName = "";
         
         // Deactivate HUD After testing
-        ActivateHUD();
+        DeActivateHUD();
 
     }
 
     private void Update()
     {
-        // if (Input.GetKeyDown("t")) SwipeUp();
-        // if (Input.GetKeyDown("g")) SwipeDown();
-        //
-        // if (Input.GetKeyDown("j")) SwipeRight();
-        // if (Input.GetKeyDown("h")) SwipeLeft();
+        if (Input.GetKeyDown("t")) SwipeUp(1);
+        if (Input.GetKeyDown("g")) SwipeDown(1);
+        
+        if (Input.GetKeyDown("j")) SwipeRight();
+        if (Input.GetKeyDown("h")) SwipeLeft();
 
         if (navigatingToExhibit)
         {
@@ -359,6 +362,9 @@ public class HUD : MonoBehaviour
             i++;
         }
         
+        artist_plus1_GO.transform.localPosition = new Vector3(artistPlus1x, 
+            artistPlus1Pos[displayArtists[selectedArtistIndex].Brief.Count], artistPlus1z);
+        
         // Set +/- Menu choices based on size of List
         if (selectedArtistIndex >= 1)
             artistNeg1TMP.text = displayArtists[selectedArtistIndex - 1].ArtistName;
@@ -434,7 +440,6 @@ public class HUD : MonoBehaviour
         switch (currentPane)
         {
             case LRCursor.Period:
-                DeActivateHUD();
                 break;
             case LRCursor.Artist:
                 currentPane = LRCursor.Period;
@@ -525,6 +530,7 @@ public class HUD : MonoBehaviour
 
     public void SwipeDown(int dir)
     {
+        dir *= -1;
         switch (currentPane)
         {
             case LRCursor.Period:

@@ -30,6 +30,7 @@ public class PlayerScript : MonoBehaviour
     {
         rayDown();
 
+        // Determine Nearest Node
         RaycastHit[] nodes = Physics.SphereCastAll(
             new Vector3(player.transform.position.x, 
                 player.transform.position.y + 20f, player.transform.position.z),
@@ -54,13 +55,12 @@ public class PlayerScript : MonoBehaviour
     {
         // z = forward (vector2.y)
         // x = strafe (vector2.x)
-        if ((trackPad.x > -0.1 && trackPad.x < 0.1) && (trackPad.y > -0.1 && trackPad.y < 0.1)) return;
-        else
-        {
-            this.transform.position += velocityConstant * Time.deltaTime * new Vector3(trackPad.x, 0f, trackPad.y);
-        //    rb.AddForce(trackPad.x * velocityConstant, 0f , trackPad.y * velocityConstant, 
-        //     ForceMode.VelocityChange);
-        }
+        if ((trackPad.x > -0.1 && trackPad.x < 0.1) && (trackPad.y > -0.1 && trackPad.y < 0.1)) 
+            rb.AddRelativeForce(0f, 0f , 0f, ForceMode.VelocityChange);
+        else 
+            rb.AddRelativeForce(trackPad.x * velocityConstant, 0f , 
+                trackPad.y * velocityConstant, ForceMode.VelocityChange);
+        
         
         
     }
