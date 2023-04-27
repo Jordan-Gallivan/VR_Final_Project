@@ -26,6 +26,11 @@ public class Graph : MonoBehaviour
     private HashSet<Node> nodes;
     private Dictionary<Node, HashSet<Edge>> edges;
 
+    [SerializeField] private GameObject navArrowEmpty;
+    private List<Transform> navArrows;
+    private Quaternion zeroRot = Quaternion.Euler(0f, 0f, 0f);
+    private Vector3 zeroPos = Vector3.zero;
+
     private Dictionary<Node, Dictionary<Node, QueueElement>> shortestPaths;
     private LineRenderer visualPath;
 
@@ -59,6 +64,12 @@ public class Graph : MonoBehaviour
             );
         visualPath.colorGradient = gradient;
         visualPath.numCornerVertices = 4;
+
+        navArrows = new List<Transform>();
+        foreach (Transform arrow in navArrowEmpty.transform)
+        {
+            navArrows.Add(arrow);
+        }
     }
     
     /// <summary>
@@ -167,6 +178,12 @@ public class Graph : MonoBehaviour
 
     public void DisplayPath(Node start, Node dest)
     {
+        foreach (var arrow in navArrows)
+        {
+            arrow.position = zeroPos;
+            arrow.rotation = zeroRot;
+        }
+        
         visualPathGO.SetActive(true);
         List<Edge> path = shortestPaths[start][dest].Path;
         // visualPath = new LineRenderer();
@@ -185,9 +202,29 @@ public class Graph : MonoBehaviour
                     ePos.y + 2.4f, 
                     ePos.z));
             i++;
+            var node1 = e.SourceNode.transform.position;
+            var node2 = e.DestinationNode.transform.position;
+            var x1 = node1.x;
+            var z1 = node1.z;
+            var x2 = node2.x;
+            var z2 = node2.z;
+            
+            var midx = (x2 - x1) / 2f;
+            var midz = (z2 - z1) / 2f;
+            var ang = Vector2.Angle(Vector2.right, new Vector2(x2 - x1, z2 - z1));
+            if (z2 - z1 > 0) ang *= -1;
+            // else if (x2 - x1 < 0 && z2 - z1 > 0) ang *= -1;
+
+            
+            navArrows[i-1].transform.position = new Vector3(x1 + midx, .01f, z1 + midz);
+            navArrows[i-1].transform.rotation = Quaternion.Euler(0f, ang, 0f);
+
         }
 
         visualPath.alignment = LineAlignment.View;
+        
+        
+        
 
     }
     
