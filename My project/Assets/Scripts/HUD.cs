@@ -98,6 +98,9 @@ public class HUD : MonoBehaviour
     private TextMeshPro currViewDescTMP;
     private GameObject nearestArtist;
     private string nearestArtistName;
+    
+    // Loading Prompt
+    [SerializeField] private GameObject loadingPrompt;
 
     // Initialize Empty Game Object in which Exhibit Game Objects are nested
     [SerializeField] private GameObject exhibitCollectionGO;
@@ -140,6 +143,9 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Display Loading Prompt
+        loadingPrompt.SetActive(true);
+        
         // Initialize Player Script
         Player = player.GetComponent<PlayerScript>();
         
@@ -195,7 +201,7 @@ public class HUD : MonoBehaviour
         
         DeActivateAllHUDObjects();
         
-        Invoke("InitializeHUD", 2f);
+        Invoke("InitializeHUD", 3f);
     }
 
     private void InitializeHUD()
@@ -212,8 +218,16 @@ public class HUD : MonoBehaviour
         
         DeActivateHUD();
 
+        loadingPrompt.GetComponent<TextMeshPro>().text = "Museum Loaded.  Enjoy your Experience!";
+        Invoke("EndLoadingPrompt", 2f);
+        
         // Deactivate HUD After testing
         ActivateHUD();
+    }
+
+    private void EndLoadingPrompt()
+    {
+        loadingPrompt.SetActive(false);
     }
 
     private void Update()

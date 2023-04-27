@@ -4,9 +4,9 @@
     "com.valvesoftware.unity.openvr": {
       "tarball": {
         "hash": "3ee6c452bc34",
-        "mtime": 1682091615955,
+        "mtime": 1681930731438,
         "size": 16210619,
-        "localPath": "D:\\VR Final Project\\VR_Final_Project\\My project\\Assets\\SteamVR\\OpenVRUnityXRPackage\\Editor\\com.valvesoftware.unity.openvr-1.1.4.tgz"
+        "localPath": "/Users/jordangallivan/gitHub/VR_Final_Project/My project/Assets/SteamVR/OpenVRUnityXRPackage/Editor/com.valvesoftware.unity.openvr-1.1.4.tgz"
       }
     }
   }

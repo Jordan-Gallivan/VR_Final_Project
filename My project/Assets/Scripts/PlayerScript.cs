@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,60 +22,97 @@ public class PlayerScript : MonoBehaviour
     
     private Node nearestMusicNode;
     private GameObject nearestMusicNodeGO;
+    private GameObject prevMusicNodeGO;
+    private music musicNodeScript;
     public Node NearestMusicNode => nearestMusicNode;
+    
+    private int currRoom;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        prevMusicNodeGO = null;
+        musicNodeScript = null;
+        currRoom = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        rayDown();
+        RayDown();
+
+        // Determine if player has left the room music node was in
+        if ( prevMusicNodeGO != null &&
+            (currRoom != Int32.Parse(prevMusicNodeGO.name.Substring(0, 1))))
+        {
+            // deactivate old music
+            musicNodeScript.DeActivateMusic();
+            musicNodeScript = null;
+            prevMusicNodeGO = null;
+        }
+
+        var playerPos = player.transform.position;
 
         // Determine Nearest Nodes
         RaycastHit[] nodes = Physics.SphereCastAll(
-            new Vector3(player.transform.position.x, 
-                player.transform.position.y + 20f, player.transform.position.z),
+            new Vector3(playerPos.x, 
+                playerPos.y + 20f, playerPos.z),
             10.0f, new Vector3(0f, -1f, 0f));
+        
         float nearestNodeDist = Mathf.Infinity;
         float nearestMusicNodeDist = Mathf.Infinity;
 
         nearestNode = null;
         nearestMusicNode = null;
         nearestNodeGO = null;
-        var prevMusicNodeGO = nearestMusicNodeGO;
+        
         nearestMusicNodeGO = null;
         
         foreach (RaycastHit hit in nodes)
         {
             // determine nearest node for navigation
             if ((hit.distance < nearestNodeDist) && (hit.collider.gameObject != nearestNodeGO) &&
-                hit.transform.gameObject.layer == LayerMask.NameToLayer("Node"))
+                (hit.transform.gameObject.layer == LayerMask.NameToLayer("Node") || 
+                 hit.transform.gameObject.layer == LayerMask.NameToLayer("MusicNode")))
             {
                 nearestNodeDist = hit.distance;
                 nearestNodeGO = hit.transform.gameObject;
             }
             
             // determine nearest node for music
-            if ((hit.distance < nearestMusicNodeDist) && (hit.collider.gameObject != nearestMusicNodeGO) &&
-                hit.transform.gameObject.layer == LayerMask.NameToLayer("MusicNode"))
+            if (hit.transform.gameObject.layer != LayerMask.NameToLayer("MusicNode")) continue;
+            
+            var nodeNum = Int32.Parse(hit.transform.gameObject.name.Substring(0, 1));
+            if (nodeNum == currRoom &&
+                (hit.distance < nearestMusicNodeDist) && (hit.collider.gameObject != nearestMusicNodeGO))
             {
                 nearestMusicNodeDist = hit.distance;
                 nearestMusicNodeGO = hit.transform.gameObject;
             }
         }
 
+        // null check, update nearest node
         if (nearestNodeGO != null) nearestNode = nearestNodeGO.GetComponent<Node>();
 
+        // Determine if music node has changed and update
         if (nearestMusicNodeGO != null && nearestMusicNodeGO != prevMusicNodeGO)
         {
-            // Deactivate previous music
-            // Activate new music
+            // Deactivate old music
+            if (musicNodeScript != null)
+                musicNodeScript.DeActivateMusic();
+            
+            prevMusicNodeGO = nearestMusicNodeGO;
+            musicNodeScript = prevMusicNodeGO.GetComponent<music>();
         }
         
+        // update volume of music node
+        if (prevMusicNodeGO != null && musicNodeScript != null)
+        {
+            var musicNodePos = prevMusicNodeGO.transform.position;
+            var musicDist = Vector2.Distance(new Vector2(playerPos.x, playerPos.z),
+                new Vector2(musicNodePos.x, musicNodePos.z));
+            musicNodeScript.ActivateMusic(musicDist);
+        }
         
     }
 
@@ -104,11 +142,32 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void rayDown()
+    public void RayDown()
     {
-        RaycastHit hit;
-        Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 100f);
-        player.transform.position = new Vector3(player.transform.position.x, hit.point.y + playerHeight, player.transform.position.z);
-        
+        var playerPos = player.transform.position;
+        // // RaycastHit hit;
+        // Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.down), out hit, 6f);
+        // player.transform.position = new Vector3(player.transform.position.x, hit.point.y + playerHeight, player.transform.position.z);
+
+        RaycastHit[] hits = Physics.RaycastAll(playerPos, 
+            player.transform.TransformDirection(Vector3.down), 10f);
+        var deadSpace = true;
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Floor"))
+            {
+                player.transform.position = new Vector3(playerPos.x, 
+                    hit.point.y + playerHeight, playerPos.z);
+            }
+
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Room"))
+            {
+                currRoom = Int32.Parse(hit.transform.gameObject.name);
+                deadSpace = false;
+            }
+        }
+
+        if (deadSpace) currRoom = 0;
+
     }
 }
