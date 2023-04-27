@@ -6,7 +6,7 @@ x 	Fix pictures on all walls
 
 o 	raise all lights - Kyle
 
-o 	get movement down - Jordan
+x 	get movement down - Jordan
 
 o	prevent player from going through walls - Both
 

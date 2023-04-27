@@ -9,12 +9,18 @@ public class PlayerScript : MonoBehaviour
     // Player Objects
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject player;
-    
+    [SerializeField] private GameObject playerCamera;
+
     // Player settings
     [SerializeField] private float playerHeight;
     [SerializeField] private float velocityConstant = 2.0f;
     [SerializeField] private float rotationConstant = 1f;
-    
+    [SerializeField] private bool seated;
+
+    // Seated Arrow
+    [SerializeField] private GameObject seatedArrow;
+    [SerializeField] private GameObject feet;
+
     // Nearest Nodes
     private Node nearestNode;
     private GameObject nearestNodeGO;
@@ -34,6 +40,8 @@ public class PlayerScript : MonoBehaviour
         prevMusicNodeGO = null;
         musicNodeScript = null;
         currRoom = 0;
+        seatedArrow.SetActive(true ? seated : false);
+        feet.SetActive(true ? seated : false);
     }
 
     // Update is called once per frame
@@ -42,7 +50,7 @@ public class PlayerScript : MonoBehaviour
         RayDown();
 
         // Determine if player has left the room music node was in
-        if ( prevMusicNodeGO != null &&
+        if ( prevMusicNodeGO != null && musicNodeScript != null &&
             (currRoom != Int32.Parse(prevMusicNodeGO.name.Substring(0, 1))))
         {
             // deactivate old music
@@ -123,23 +131,44 @@ public class PlayerScript : MonoBehaviour
 
         // z = forward (vector2.y)
         // x = strafe (vector2.x)
-        if ((trackPad.x > -0.1 && trackPad.x < 0.1) && (trackPad.y > -0.1 && trackPad.y < 0.1)) 
-            rb.AddRelativeForce(0f, 0f , 0f, ForceMode.VelocityChange);
-        else 
-            rb.AddRelativeForce(trackPad.x * velocityConstant, 0f , 
-                trackPad.y * velocityConstant, ForceMode.VelocityChange);
-        
-        
-        
+        //if ((trackpad.x > -0.1 && trackpad.x < 0.1) && (trackpad.y > -0.1 && trackpad.y < 0.1))
+        //    rb.addrelativeforce(0f, 0f, 0f, forcemode.velocitychange);
+        //else
+        if (seated)
+        {
+            if (!Physics.Raycast(player.transform.position, new Vector3(-trackPad.x, 0f, -trackPad.y), 1.75f))
+                rb.AddRelativeForce(-trackPad.x * velocityConstant, 0f, -trackPad.y * velocityConstant, ForceMode.VelocityChange);
+        }
+        //rb.addforce(trackpad.x * velocityconstant, 0f, trackpad.y * velocityconstant, forcemode.velocitychange);
+        else
+        {
+            var cameraFwd = playerCamera.transform.forward;
+            var playerFwd = player.transform.forward;
+            float theta = Mathf.Deg2Rad * (playerCamera.transform.localEulerAngles.y);
+            //Debug.Log(theta);
+            //Debug.Log($"x: {(Mathf.Sin(theta))} z: {MathF.Cos(theta)}");
+            // Forward/Backward
+            rb.AddRelativeForce(Mathf.Sin(theta) * trackPad.y * velocityConstant + Mathf.Cos(theta) * trackPad.x * velocityConstant, 
+                0f,
+                MathF.Cos(theta) * trackPad.y * velocityConstant + MathF.Sin(theta) * trackPad.x * velocityConstant, 
+                ForceMode.VelocityChange);
+
+            //// Sideways
+            //rb.AddRelativeForce(Mathf.Cos(theta) * trackPad.x * velocityConstant, 0f,
+            //    MathF.Sin(theta) * trackPad.x * velocityConstant, ForceMode.VelocityChange);
+        }
+
+        //rb.velocity = new Vector3(trackPad.x * velocityConstant, 0f, trackPad.y * velocityConstant);
+
     }
 
     public void RotatePlayer(Vector2 trackPad)
     {
         // - vector2.x == + rotation about y axis
-        if (!(trackPad.x > -0.2 && trackPad.x < 0.2))
-        {
-           player.transform.Rotate(new Vector3(0f, trackPad.x * rotationConstant, 0f), Space.Self);
-        }
+        if (seated)
+            if (!(trackPad.x > -0.2 && trackPad.x < 0.2))
+               player.transform.Rotate(new Vector3(0f, trackPad.x * rotationConstant, 0f), Space.Self);
+
     }
 
     public void RayDown()

@@ -222,7 +222,7 @@ public class HUD : MonoBehaviour
         Invoke("EndLoadingPrompt", 2f);
         
         // Deactivate HUD After testing
-        ActivateHUD();
+        // ActivateHUD();
     }
 
     private void EndLoadingPrompt()

@@ -29,10 +29,15 @@ public class ActionListener : MonoBehaviour
     public SteamVR_Action_Boolean touchPadSelect;
     public SteamVR_Action_Vector2 touchPad;
 
+    private Vector2 prevLeftTP;
+    private Vector2 prevRightTP;
+
     void Start()
     {
         player = playerGO.GetComponent<PlayerScript>();
         HUDScript = HUDGO.GetComponent<HUD>();
+        prevLeftTP = Vector2.zero;
+        prevRightTP = Vector2.zero;
 
     }
 
@@ -71,6 +76,8 @@ public class ActionListener : MonoBehaviour
         /////////////////////////////////////////
         /////         Update Player         /////
         /////////////////////////////////////////
+
+
         Vector2 leftTP = touchPad.GetAxis(SteamVR_Input_Sources.LeftHand);
         Vector2 rightTP = touchPad.GetAxis(SteamVR_Input_Sources.RightHand);
 
@@ -81,6 +88,10 @@ public class ActionListener : MonoBehaviour
             player.MovePlayer(leftTP);
             player.RotatePlayer(rightTP);
         }
+        // Debug.Log(rightTP);
+
+        // prevLeftTP = leftTP;
+        // prevRightTP = rightTP;
 
     }
 
@@ -122,7 +133,18 @@ public class ActionListener : MonoBehaviour
 
     public void RightTPPress()
     {
-        Debug.Log("Right TP Press");
+        Vector2 leftTP = touchPad.GetAxis(SteamVR_Input_Sources.RightHand);
+        
+        float theta = Mathf.Atan(leftTP.y / leftTP.x);
+        float r = Mathf.Sqrt(Mathf.Pow(leftTP.y, 2.0f) + Mathf.Pow(leftTP.x, 2.0f));
+        
+        if (!HUDScript.HUDActive) return;
+        if (!(r > 0.5)) return;
+        
+        if (leftTP.y > 0 && (theta > Mathf.PI / 4f || theta < -Mathf.PI / 4f)) HUDScript.SwipeUp(1);
+        else if (leftTP.y < 0 && (theta > Mathf.PI / 4f || theta < -Mathf.PI / 4f)) HUDScript.SwipeDown(1);
+        else if (leftTP.x > 0) HUDScript.SwipeRight();
+        else HUDScript.SwipeLeft();
     }
 
     public void LeftTP()

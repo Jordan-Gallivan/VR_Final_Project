@@ -20,27 +20,27 @@ public class music : MonoBehaviour
 
     public void ActivateMusic(float distToNode)
     {
-        if (distToNode < 1)
+        if (distToNode < 3)
         {
             myAudio.volume = 1;
         }
-        else if (distToNode < 1.5)
+        else if (distToNode < 3.5)
         {
             myAudio.volume = .9f;
         }
-        else if (distToNode < 2)
+        else if (distToNode < 4)
         {
             myAudio.volume = .8f;
         }
-        else if (distToNode < 2.5)
+        else if (distToNode < 4.5)
         {
             myAudio.volume = .7f;
         }
-        else if (distToNode < 3)
+        else if (distToNode < 5)
         {
             myAudio.volume = .5f;
         }
-        else if (distToNode < 3.5)
+        else if (distToNode < 5.5)
         {
             myAudio.volume = .3f;
         }
