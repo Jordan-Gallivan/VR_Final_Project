@@ -142,6 +142,8 @@ public class Graph : MonoBehaviour
         }
     }
 
+    
+
     public void DJTest()
     {
         StreamWriter write = new StreamWriter("Assets/Scripts/pathTest.txt", false);
@@ -165,6 +167,7 @@ public class Graph : MonoBehaviour
 
     public void DisplayPath(Node start, Node dest)
     {
+        visualPathGO.SetActive(true);
         List<Edge> path = shortestPaths[start][dest].Path;
         // visualPath = new LineRenderer();
         // visualPath.SetColors (Color.red,Color.blue);
@@ -172,20 +175,25 @@ public class Graph : MonoBehaviour
         visualPath.endWidth = .15f;
         visualPath.positionCount = path.Count + 1;
         var startPos = start.gameObject.transform.position;
-        visualPath.SetPosition(0, new Vector3(startPos.x, startPos.y + .07f, startPos.z));
+        visualPath.SetPosition(0, new Vector3(startPos.x, startPos.y + 2.4f, startPos.z));
         int i = 1;
         foreach (Edge e in path)
         {
             var ePos = e.DestinationNode.gameObject.transform.position;
             visualPath.SetPosition(i,
                 new Vector3(ePos.x, 
-                    ePos.y + .07f, 
+                    ePos.y + 2.4f, 
                     ePos.z));
             i++;
         }
 
         visualPath.alignment = LineAlignment.View;
 
+    }
+    
+    public void DeActivatePath()
+    {
+        visualPathGO.SetActive(false);
     }
     
     /*

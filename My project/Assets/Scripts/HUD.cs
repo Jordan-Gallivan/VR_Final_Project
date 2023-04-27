@@ -117,8 +117,10 @@ public class HUD : MonoBehaviour
     // Navigation Variables
     private bool navigatingToExhibit = false;
     public bool NavigatingToExhibit => navigatingToExhibit;
+    private Node prevNearestNode;
     private Node destExhibitNode;
     private string destExhibitName;
+    private Vector3 destNodePos;
     
 
     // Enumerator for Selected Menu
@@ -190,16 +192,28 @@ public class HUD : MonoBehaviour
         };
 
         displayPeriods = new List<string>();    // Initialize displayPeriods
-        ParseExhibitDoc();  // Read in Artist Document
         
         DeActivateAllHUDObjects();
+        
+        Invoke("InitializeHUD", 2f);
+    }
+
+    private void InitializeHUD()
+    {
+        ParseExhibitDoc();  // Read in Artist Document
+        
+        
 
         destExhibitNode = null;
+        prevNearestNode = null;
+        destNodePos = new Vector3();
         destExhibitName = "";
         
-        // Deactivate HUD After testing
+        
         DeActivateHUD();
 
+        // Deactivate HUD After testing
+        ActivateHUD();
     }
 
     private void Update()
@@ -213,7 +227,20 @@ public class HUD : MonoBehaviour
         if (navigatingToExhibit)
         {
             ActivateNavPrompts(destExhibitName);
-            graphScript.DisplayPath(Player.NearestNode, destExhibitNode);
+            var nearestNode = Player.NearestNode;
+            var playerPos = Player.transform.position;
+            var distToDest = Mathf.Sqrt(Mathf.Pow(playerPos.x - destNodePos.x, 2f) +
+                                        Mathf.Pow(playerPos.z - destNodePos.z, 2f));
+            // reached destination node - end navigation
+            if (nearestNode == destExhibitNode || distToDest <= 3)
+                EndNavigation();
+            else
+            {
+                // continue navigation
+                if (prevNearestNode != nearestNode)
+                    graphScript.DisplayPath(nearestNode, destExhibitNode);
+                prevNearestNode = nearestNode;
+            }
         }
 
         if (!hudActive)
@@ -255,6 +282,7 @@ public class HUD : MonoBehaviour
             currViewGO.SetActive(false);
             currViewDescGO.SetActive(false);
         }
+        
     }
     
     public void ActivateHUD()
@@ -614,8 +642,10 @@ public class HUD : MonoBehaviour
     {
         navigatingToExhibit = true;
         destExhibitNode = destNode.NearestNode;
+        destNodePos = destExhibitNode.transform.position;
         destExhibitName = destNode.ExhibitName;
         DeActivateHUD();
+        prevNearestNode = null;
 
     }
 
@@ -639,6 +669,7 @@ public class HUD : MonoBehaviour
         navigatingToExhibit = false;
         destExhibitNode = null;
         destExhibitName = "";
+        graphScript.DeActivatePath();
     }
     
 
@@ -755,7 +786,7 @@ public class HUD : MonoBehaviour
         {
             // Let the user know what went wrong.
             Debug.Log("The file could not be read:");
-            Debug.Log(e.Message);
+            Debug.Log(e.StackTrace);
         }
         foreach (var p in periodDict)
         {

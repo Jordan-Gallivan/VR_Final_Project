@@ -50,7 +50,7 @@ public class Arrows : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Time.time - startTime) < arrowTime || !arrowsActivated) return;
+        if ((Time.time - startTime) < arrowTime) return;
         ArrowChange();
         startTime = Time.time;
     }
