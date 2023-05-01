@@ -84,6 +84,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private GameObject Bio_Pane;
     [SerializeField] private GameObject Bio_Artist;
     [SerializeField] private GameObject BIO_Content;
+    [SerializeField] private GameObject Bio_Background;
     private TextMeshPro bioArtistTMP;
     private TextMeshPro bioContentTMP;
     
@@ -261,6 +262,7 @@ public class HUD : MonoBehaviour
         {
             currViewGO.SetActive(true);
             currViewDescGO.SetActive(true);
+            currViewDescTMP.SetText("");
             RaycastHit[] artistPlanes = Physics.RaycastAll(transform.position, 
                 transform.forward, 22f);
 
@@ -386,13 +388,18 @@ public class HUD : MonoBehaviour
     private void ActivateBio()
     {
         Bio_Pane.SetActive(true);
+        var bioText = bioContentTMP.text = displayArtists[selectedArtistIndex].Bio;
         bioArtistTMP.text = displayArtists[selectedArtistIndex].ArtistName;
-        bioContentTMP.text = displayArtists[selectedArtistIndex].Bio;
+        int y = bioText.Length / 45;
+        Bio_Background.transform.localScale = new Vector3(.1f, 0.016f + (float)y * .0045f, 1f);
+
     }
 
     private void DeActivateBio()
     {
+        Bio_Background.transform.localScale = new Vector3(.1f, 0.16f, 1f);
         Bio_Pane.SetActive(false);
+        
     }
     
     /// <summary>

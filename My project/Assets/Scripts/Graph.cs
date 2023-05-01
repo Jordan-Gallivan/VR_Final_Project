@@ -231,6 +231,12 @@ public class Graph : MonoBehaviour
     public void DeActivatePath()
     {
         visualPathGO.SetActive(false);
+
+        foreach (var arrow in navArrows)
+        {
+            arrow.position = zeroPos;
+            arrow.rotation = zeroRot;
+        }
     }
     
     /*
